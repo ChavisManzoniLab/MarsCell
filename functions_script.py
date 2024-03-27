@@ -129,9 +129,9 @@ def extract(path_to_folder, name_extraction, separator, structure, threshold = 5
         df_distance = df_distance.drop(df_distance[df_distance['Cy_Pix']>ymax].index)
         
         #volumic density calculation
-        df_distance['volume_roi'] = df_distance['length']*pix_to_micron*threshold*df_distance['Height']
+        df_distance['volume_roi'] = df_distance['length']*threshold*df_distance['Height']
         n = len(df_distance)
-        df_distance['volumic_density'] = n/df_distance['volume_roi']
+        df_distance['volumic_density'] = n/df_distance['volume_roi']*1000000 #Unit : (100µm)^3
 
         #merging the cells' volume data.
         df_volume =  pd.read_csv(path_name + "\\volume\\"+name+'-volumeReelin.csv')
@@ -172,7 +172,7 @@ def extract(path_to_folder, name_extraction, separator, structure, threshold = 5
 
     #binning the distance
     datafff['bins'] = pd.cut(datafff['distUnit'], bins)
- 
+    datafff['ID'] = datafff['Batch']+datafff['Ori']+datafff['Condition']
     timestr = time.strftime("%Y_%m_%d-%H_%M_%S")
     
 
