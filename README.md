@@ -24,3 +24,5 @@ In the `TAPAS_scripts` folder, each text document is used to run a specific proc
 The `run_cellpose.bat` file is used to launch Cellpose with the provided model. You must change the paths in this file. To proceed, right-click on the file, then “Show more options”, then “Edit”.
 
 First, put the path to your Python environment where Cellpose is installed. If you used Anaconda to install Cellpose, it should look like this:
+```python
+print("Hello, world!")
