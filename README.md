@@ -1,8 +1,8 @@
 # Methodology
 
 ## Description
-
-This workflow is based on TAPAS, an ImageJ plugin, completed with Cellpose, an automatic cell-segmentation tool, and a Jupyter Notebook to ensure accessibility of the workflow. TAPAS allows the user to create a personalized image analysis pipeline by linking script modules. Each module performs a simple process and is assembled in a simple text file.
+CACAO is an AI-based workflow for automated cell detection and quantification on confocal images.
+It is based on TAPAS, an ImageJ plugin, completed with Cellpose, an automatic cell-segmentation tool, and a Jupyter Notebook to ensure accessibility to everyone.
 
 ## Step by Step Process
 
@@ -19,25 +19,21 @@ Make sure that the following are installed:
 
 Save the Jupyter notebook and the `functions_script.py` file in the same folder. The notebook will be used to help with the initialization of the workflow and to format data. The `functions_script.py` file contains all the functions used in the notebook.
 
-In the `TAPAS_scripts` folder, each text document is used to run a specific process in Fiji. The file `subprocess.txt` allows you to run multiple processes at once, so that you do not have to manually launch each process one after the other.
+In the `TAPAS_scripts` folder, each text document is used to run a specific process in Fiji. 
+The file `subprocess.txt` allows you to run multiple processes at once, so that you do not have to manually launch each process one after the other.
 
 The `run_cellpose.bat` file is used to launch Cellpose with the provided model. You must change the paths in this file. To proceed, right-click on the file, then “Show more options”, then “Edit”.
-
 First, put the path to your Python environment where Cellpose is installed. If you used Anaconda to install Cellpose, it should look like this:
-
 C:\Users\username\anaconda3\envs\environment_name\python
-
-The second path is to the Cellpose model you are going to use.
+The second path is to the Cellpose model you are going to use. You can use the model available in the github directory, or create a model that suits better your analysis workflow.
 
 ### 2. Initialization
 
 #### 2.1 Upload
 
-Upload your stacks on OMERO, using OMERO.insight. The image processing works on one dataset at a time, so put all the stacks of the same project you want to process in the same dataset.
+Upload your image stacks on OMERO, using OMERO.insight. The image processing handles one dataset at a time, so ensure that all the image stacks for a given project are included in the same dataset.
 
-If you want to have layer organization data, you can draw a segment on the OMERO ROI interface (polyline and polygon are not supported, for now). The distance of the cells to the segment will be available.
-
-Make sure your stacks do not have too much resolution, as some problems can occur with OMERO.
+To obtain layer organization data (the distance of cells to a segment), you can draw a segment using the OMERO ROI interface. Please note that currently, the workflow only supports straight lines.
 
 #### 2.2 Imports
 
@@ -50,6 +46,7 @@ Specify the structure of the title of your images. Ensure that all your images f
 Example:
 
 ```python
+"""191001_B4_PPGI2_Naive_P35_M_C57_Rln_PFC1_FIG9_L.czi"""
 separator = '_'
 structure = ['Exp_Date', 'Batch', 'Ori', 'Condition', 'Age', 'Sex', 'Strain', 'Marker', 'Slide_Id', 'Atlas', 'Slide_side']
 ```
