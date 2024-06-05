@@ -10,9 +10,7 @@ It is based on TAPAS, an ImageJ plugin, completed with Cellpose, an automatic ce
 
 #### Downloads
 
-Please download the folder from our repository [xxxx](URL).
-
-Make sure that the following are installed:
+First, make sure that the following softwares are installed:
 - **Fiji**: [https://imagej.net/software/fiji/](https://imagej.net/software/fiji/)
 - **TAPAS**: [https://imagej.net/plugins/tapas](https://imagej.net/plugins/tapas)
 - **A Python environment** with the packages in `requirements.txt` installed.
