@@ -30,7 +30,7 @@ def initialisation(path_to_folder, name_extraction):
 
 def change_path(path_to_tapas_scripts, tapas_file, pattern, text_replacement):
     """
-    This function allows to automatically change the path used by the TAPAS script.
+    This function automatically changes the path used by the TAPAS script.
     The function detects the line that start with the specified pattern, and then change the next line with the right path.
     """
     with open(os.path.join(path_to_tapas_scripts, tapas_file, "r")) as file:
