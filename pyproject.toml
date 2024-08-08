@@ -1,0 +1,13 @@
+[build-system]
+requires = ["setuptools >= 61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "MarCell"
+version = "0.0.1"
+description = "An AI-based workflow for automated cell detection and quantification on confocal images"
+authors = [
+  { name = "Julien Ferragu", email = "julien.ferragu@inserm.fr" },
+]
+readme = "README.md"
+requires-python = ">=3.7"

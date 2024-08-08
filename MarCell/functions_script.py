@@ -2,7 +2,6 @@ import pandas as pd
 import math as m
 import numpy as np
 import os
-from os import listdir, mkdir
 import seaborn as sns
 import matplotlib.pyplot as plt
 import plotly.graph_objects as go
@@ -21,19 +20,20 @@ def initialisation(path_to_folder, name_extraction):
     #Create a folder for the project
     try:
         os.makedirs(path_name)
-    except FileExistsError:
+    except FileExistsError as fe:
         print("The folder \"%s\" already exists"%name_extraction)
-        return 
+        return fe
     folders_name = ["calibration", "coordinates", "distance", "volume", "intensity", "combined_csv", "npy"]
     for folder in folders_name:
-        mkdir(os.path.join(path_name,folder))
+        os.mkdir(os.path.join(path_name,folder))
 
 def change_path(path_to_tapas_scripts, tapas_file, pattern, text_replacement):
     """
     This function automatically changes the path used by the TAPAS script.
-    The function detects the line that start with the specified pattern, and then change the next line with the right path.
+    The function detects the line that start with the specified pattern, and then change the line below with the right path.
+    It needs to work that way because every path start with 'dir' so if different paths are required in a txt, detecting the start of a line isnt sufficient
     """
-    with open(os.path.join(path_to_tapas_scripts, tapas_file, "r")) as file:
+    with open(os.path.join(path_to_tapas_scripts, tapas_file), "r") as file:
         lines = file.readlines()
 
     # Modify the lines that start with the specified pattern
@@ -204,11 +204,6 @@ def extract(path_to_folder, name_extraction, separator, structure, ID, ROI, thre
             else: 
                 err_ROI = 1
                 print('No distance file found for %s'%name)
-         
-        
-    
-            
-        
 
         try:
             df = df.drop(columns=['imageLabel', 'imageSignal', 'imageLabel_y','pos', 'segment'])
@@ -216,11 +211,11 @@ def extract(path_to_folder, name_extraction, separator, structure, ID, ROI, thre
 
         df.to_csv(path_name+"\combined_csv"+"\\%s.csv"%name)
         
-#binning step
+
     
     #access to the combined csv 
     path_to_results = path_name+"\combined_csv"
-    analysed_csv = listdir(path_to_results)
+    analysed_csv = os.listdir(path_to_results)
     list_df = []
 
     #Retrieving the information that are in the title of the image
@@ -239,7 +234,7 @@ def extract(path_to_folder, name_extraction, separator, structure, ID, ROI, thre
         
 
     datafff = pd.concat(list_df)
-    
+    #binning step
     if ROI == 'line' and err_ROI==0:   
         #bins = [50*i for i in range(12)]
         bins = [0, 120, 270, 500]
