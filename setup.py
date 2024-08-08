@@ -10,8 +10,7 @@ setup(
         'matplotlib==3.7.2',
         'plotly==5.18.0',
         'scipy==1.10.1',
-        'cellpose==2.1.1']
-
+        'cellpose==2.1.1'],
     url='https://github.com/julienf1249/MarCell',
     author='Julien Ferragu',
     author_email='julien.ferragu@inserm.fr',
