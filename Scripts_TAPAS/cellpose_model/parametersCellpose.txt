@@ -1,0 +1,5 @@
+Flow threshold: 0.4
+
+Cellprob threshold: -2.0
+
+Stitch threshold: 0.4 
