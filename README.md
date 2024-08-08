@@ -21,14 +21,13 @@ pip install git+https://github.com/julienf1249/MarCell.git
 ```
 This will install all the required packages to run the notebook.
 
-The notebook will be used to help with the initialisation of the workflow and to format data. The `functions_script.py` file contains all the functions used in the notebook.
+The notebook will be used to help with the initialisation of the workflow and to format data. 
 
 In the `TAPAS_scripts` folder, each text document is used to run a specific process in Fiji. 
-The file `subprocess.txt` allows you to run multiple processes at once, so that you do not have to manually launch each process one after the other.
+The file `subprocess.txt` allows to run multiple processes at once, so that you do not have to manually launch each process one after the other.
 
 The `run_cellpose.bat` file is used to launch Cellpose with the provided model. You must change the paths in this file. To proceed, right-click on the file, then “Show more options”, then “Edit”.
-First, put the path to your Python environment where Cellpose is installed. If you used Anaconda to install Cellpose, it should look like this:
-C:\Users\username\anaconda3\envs\environment_name\python
+First, put the path to your Python environment that you just created. 
 The second path is to the Cellpose model you are going to use. You can use the model available in the github directory, or create a model that suits better your analysis workflow.
 
 ### 2. Initialization
