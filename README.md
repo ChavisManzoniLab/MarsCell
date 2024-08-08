@@ -15,12 +15,13 @@ First, make sure that the following softwares are installed:
 - **TAPAS**: [https://imagej.net/plugins/tapas](https://imagej.net/plugins/tapas)
 - **Python 3.9**
 
-Create a virtual environment using conda or venv, then run
+Create a virtual environment using conda or venv, then run:
 ```bash
 pip install git+https://github.com/julienf1249/MarCell.git
 ```
+This will install all the required packages to run the notebook.
 
-Save the Jupyter notebook and the `functions_script.py` file in the same folder. The notebook will be used to help with the initialisation of the workflow and to format data. The `functions_script.py` file contains all the functions used in the notebook.
+The notebook will be used to help with the initialisation of the workflow and to format data. The `functions_script.py` file contains all the functions used in the notebook.
 
 In the `TAPAS_scripts` folder, each text document is used to run a specific process in Fiji. 
 The file `subprocess.txt` allows you to run multiple processes at once, so that you do not have to manually launch each process one after the other.
