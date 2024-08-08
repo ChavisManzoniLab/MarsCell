@@ -13,9 +13,14 @@ It is based on TAPAS, an ImageJ plugin, completed with Cellpose, an automatic ce
 First, make sure that the following softwares are installed:
 - **Fiji**: [https://imagej.net/software/fiji/](https://imagej.net/software/fiji/)
 - **TAPAS**: [https://imagej.net/plugins/tapas](https://imagej.net/plugins/tapas)
-- **A Python environment** with the packages in `requirements.txt` installed.
+- **Python 3.9**
 
-Save the Jupyter notebook and the `functions_script.py` file in the same folder. The notebook will be used to help with the initialization of the workflow and to format data. The `functions_script.py` file contains all the functions used in the notebook.
+Create a virtual environment using conda or venv, then run
+```bash
+pip install git+https://github.com/julienf1249/MarCell.git
+```
+
+Save the Jupyter notebook and the `functions_script.py` file in the same folder. The notebook will be used to help with the initialisation of the workflow and to format data. The `functions_script.py` file contains all the functions used in the notebook.
 
 In the `TAPAS_scripts` folder, each text document is used to run a specific process in Fiji. 
 The file `subprocess.txt` allows you to run multiple processes at once, so that you do not have to manually launch each process one after the other.
