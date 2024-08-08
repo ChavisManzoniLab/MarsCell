@@ -1,0 +1,22 @@
+// first process should be input 
+// to read image from OMERO 
+// or from file 
+process:input 
+channel:3
+
+// Clear outside rois
+process:maskFromROI
+
+// Scaling
+//process:scale
+//scalex:0.5
+//scaley:0.5
+
+// Crop in Z
+//process:cropZ
+//zMin:0
+//zMax:18
+
+process:output
+dataset:?dataset?
+image:?image?-pre

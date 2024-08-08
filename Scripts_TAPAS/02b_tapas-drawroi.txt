@@ -1,0 +1,22 @@
+// No input required
+process:noInput
+
+// Set a OMERO link to an image
+process:link
+dataset:?dataset?
+image:?image?-pre
+linkName:raw
+
+// Input image
+process:input
+dataset:?dataset?
+image:?image?-seg.tif
+
+// drawroi
+process:drawRoi
+fileRaw:LINK_raw
+
+// Output image
+process:output
+dataset:?dataset?
+image:?image?-roi.tif

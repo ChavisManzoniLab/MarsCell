@@ -1,0 +1,37 @@
+// Input image reelin seg
+process:input
+dataset:?dataset?
+image:?image?-seg.tif
+
+// Distance to line
+process:distanceLine
+dir:
+file:?image?-distanceLine.csv
+scalexy : 0.5
+
+// Measurements
+process:measureGeom
+//coord
+dir: 
+file:?image?-centroid.csv
+list:centroid
+
+// link raw image reelin pre
+process:link
+dataset:?dataset?
+image:?image?-scaled
+linkName:raw
+
+// Measurements
+process:measureGeom
+//volume
+dir: 
+file:?image?-volume.csv
+list:volume
+
+// Signal quantification
+process:measureIntensity
+fileRaw:LINK_raw
+list:all
+dir: 
+file:?image?-quantif.csv

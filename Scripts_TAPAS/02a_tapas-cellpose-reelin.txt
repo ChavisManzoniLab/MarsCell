@@ -1,0 +1,41 @@
+// first process should be input 
+// to read image from OMERO 
+// or from file 
+process:input
+dataset:?dataset?
+image:?image?-pre
+
+// Save the scale calibration properties
+process:calibrationSave
+dir:
+file:?image?-calibration.txt
+
+process:save
+dir:?home?\tmpcellpose\
+file:cellpose.tif
+
+// Executable file //// 2D ou 3D CELLPOSE
+process:exe
+dir: 
+//name
+file:
+arg:?home?\tmpcellpose\
+
+// Loading from file using ImageJ
+process:load
+dir:?home?\tmpcellpose\
+file:cellpose_cp_masks.tif
+
+// Load the scale calibration properties and apply it
+process:calibrationLoadAndApply
+dir:
+file:?image?-calibration.txt
+
+process:output
+dataset:?dataset?
+image:?image?-seg.tif
+
+// delete
+process:deleteList
+dir:?home?\tmpcellpose\
+list:cellpose_seg.npy, cellpose.tif,cellpose_cp_masks.tif,
