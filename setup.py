@@ -12,7 +12,7 @@ setup(
         'scipy==1.10.1',
         'cellpose==2.1.1']
 
-    url='https://github.com/julienf1249/CACAO',
+    url='https://github.com/julienf1249/MarCell',
     author='Julien Ferragu',
     author_email='julien.ferragu@inserm.fr',
      
