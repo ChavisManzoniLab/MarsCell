@@ -15,7 +15,7 @@ def initialisation(path_to_folder, name_extraction):
     Creates the directory of the project with the path specified and the name of the project.
     The ImageJ raw data from extraction will be saved in 5 folders : calibration, coordinates, distance, volume and intensity.
     '''
-    path_name = os.path.join(path_to_folder,name_extraction,"extraction_data")
+    path_name = os.path.join(path_to_folder,name_extraction)
 
     #Create a folder for the project
     try:
@@ -23,7 +23,7 @@ def initialisation(path_to_folder, name_extraction):
     except FileExistsError as fe:
         print("The folder \"%s\" already exists"%name_extraction)
         return fe
-    folders_name = ["calibration", "coordinates", "distance", "volume", "intensity", "combined_csv", "npy"]
+    folders_name = ["calibration", "coordinates", "distance", "volume", "intensity", "combined_csv"]
     for folder in folders_name:
         os.mkdir(os.path.join(path_name,folder))
 
@@ -45,6 +45,38 @@ def change_path(path_to_tapas_scripts, tapas_file, pattern, text_replacement):
     # Write the modified lines back to the file
     with open(os.path.join(path_to_tapas_scripts, tapas_file), "w") as file:
         file.writelines(lines)
+
+def change_channel(path_to_tapas_scripts, specify_channel):
+    # Define the directory containing the files and the base string to find and replace
+    directory_path = path_to_tapas_scripts
+
+    # Get the list of files in the directory
+    file_list = [f for f in os.listdir(directory_path) if os.path.isfile(os.path.join(directory_path, f))]
+    file_list = [f for f in file_list if ".txt" in f]
+    print(file_list)
+    # Create a list of possible channel strings : if you have more channels add them to the list
+    channel_options = ['channel:1', 'channel:2', 'channel:3', 'channel:4']
+
+    # Iterate over each file
+    for file_name in file_list:
+        file_path = os.path.join(directory_path, file_name)
+        
+        # Step 1: Read the content of the file
+        with open(file_path, 'r') as file:
+            content = file.read()
+        
+        # Step 2: Replace the first found channel option with the specified channel
+        updated_content = content
+        for channel in channel_options:
+            if channel in updated_content:
+                updated_content = updated_content.replace(channel, specify_channel, 1)
+                break
+
+        # Step 3: Write the updated content back to the file
+        with open(file_path, 'w') as file:
+            file.write(updated_content)
+
+
 
 def extract(path_to_folder, name_extraction, separator, structure, ID, ROI, threshold = 500):
     """

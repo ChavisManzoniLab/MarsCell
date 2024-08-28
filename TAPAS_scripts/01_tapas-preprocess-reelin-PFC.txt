@@ -2,7 +2,7 @@
 // to read image from OMERO 
 // or from file 
 process:input 
-channel:3
+1
 
 // Clear outside rois
 process:maskFromROI

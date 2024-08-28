@@ -10,6 +10,9 @@ def open_project():
     if folder_path:
         messagebox.showinfo("Project Opened", f"Opened project at: {folder_path}")
 
+
+
+
 def save_convention(convention_name_entry,convention_entry,separator_entry):
     name=convention_name_entry.get()
     convention=convention_entry.get()
@@ -25,10 +28,23 @@ def save_convention(convention_name_entry,convention_entry,separator_entry):
     if not separator:
         messagebox.showwarning("Input Error", "Separator entry cannot be empty.")
         return
-'''    with open('MarCell_data.yaml', 'r') as f:
-        data_convention = yaml.safe_load(f)
-        data_convention['convention'] = 1 
-        print(data) '''
+    try:
+        convention_list = convention.split(',')
+        with open('MarCell_data.yaml', 'r') as f:
+            data_convention = yaml.safe_load(f)
+            if 'convention' not in data_convention:
+                data_convention['convention'] = {}
+            data_convention['convention'][name] = {'convention': convention_list, 'separator': separator}
+
+            # Save the updated data back to the YAML file
+            with open('MarCell_data.yaml', 'w') as f:
+                yaml.safe_dump(data_convention, f)
+            refresh_options()
+            messagebox.showinfo("Success", "Convention saved successfully!")
+    except Exception as e:
+        messagebox.showerror("Error", f"An error occurred while saving: {e}")
+        
+       
 
 def add_naming_convention():
 
@@ -67,13 +83,36 @@ def create_project():
     project_name_entry = tk.Entry(create_window, width=50)
     project_name_entry.grid(row=0, column=1, padx=10, pady=10)
 
+    def load_options_from_yaml():
+        """Load options from a YAML file."""
+        with open('MarCell_data.yaml', 'r') as f:
+            data = yaml.safe_load()
+        return data['convention'].keys()
 
+    def update_option_menu(new_options):
+        """Update the OptionMenu with new options."""
+        # Update the OptionMenu
+        convention_menu['menu'].delete(0, 'end')  # Clear the current options
+        for option in new_options:
+            convention_menu['menu'].add_command(label=option, command=tk._setit(selected_convention, option))
+        selected_convention.set(new_options[0])  # Set default value
+    def refresh_options():
+        """Refresh options from the YAML file."""
+        new_options = load_options_from_yaml()
+        update_option_menu(new_options)
 
     def browse_folder():
         folder_path = filedialog.askdirectory(title="Select a Folder to Save Project")
         if folder_path:
             folder_entry.delete(0, tk.END)
             folder_entry.insert(0, folder_path)
+    
+    def on_option_change(*args):
+    # This function is called when the selected option changes
+        selected_value = selected_convention.get()
+        conv=data['convention'][selected_value]['convention']
+        sep=data['convention'][selected_value]['separator']
+        display_convention_label.config(text=f"Selected convention: {conv}      separator: \'{sep}\'")
 
     tk.Label(create_window, text="Save Location:").grid(row=1, column=0, padx=10, pady=10)
     folder_entry = tk.Entry(create_window, width=50)
@@ -98,8 +137,11 @@ def create_project():
     
     add_convention_button = tk.Button(create_window, text="Add a convention", command=add_naming_convention)
     add_convention_button.grid(row=3, column=3, padx=10, pady=10)
+    display_convention_label=tk.Label(create_window, text='')
+    display_convention_label.grid(row=4, column=0, padx=10, pady=10, columnspan=3)
+    
 
-
+    selected_convention.trace("w", on_option_change)
 
     tk.Label(create_window, text="Path to TAPAS scripts: ").grid(row=5, column=0, padx=10, pady=10, sticky='w')
     tapas_path_entry = tk.Entry(create_window, width=50)
