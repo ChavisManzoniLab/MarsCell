@@ -1,18 +1,10 @@
 cellpose_model: runCellpose2D-reelin-2023bat.bat
 convention:
-  gujyuj:
-    convention:
-    - yukuk
-    separator: k
-  hgjghjghj:
-    convention:
-    - ghjghj
-    separator: j
-  hrllo:
-    convention:
-    - ezrzer
-    separator: e
   reelin:
+    ID:
+    - Batch
+    - ' Ori'
+    - ' Condition'
     convention:
     - Exp_Date
     - ' Batch'
@@ -25,29 +17,6 @@ convention:
     - ' Slide_ID'
     - ' Atlas'
     - ' Slide_side'
-    separator: _
-  sdfdf:
-    convention:
-    - fdgfdg
-    separator: g
-  test:
-    convention:
-    - test1
-    - ' test2'
-    - ' test3'
-    separator: _
-  test2:
-    convention:
-    - a
-    - b
-    - c
-    - d
-    separator: _
-  test3:
-    convention:
-    - babra
-    - ' poeed'
-    - ' bebd'
     separator: _
 description: This is a storage file for data useful to MarCell.
 name: MarCell_data
