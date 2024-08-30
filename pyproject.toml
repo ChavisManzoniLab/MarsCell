@@ -21,4 +21,4 @@ dependencies = [
     'cellpose==2.1.1']
 
 [project.scripts]
-my_gui_command = "my_package.gui:run_gui"
+my_gui_command = "my_package.gui2:run_gui"
