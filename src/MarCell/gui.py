@@ -345,11 +345,6 @@ def run_gui():
             project_path = os.path.join(folder_path, project_name)
             try:
                 os.makedirs(project_path)
-                
-                
-            except Exception as e:
-                messagebox.showerror("Error", f"Could not create project folder: {e}")
-            try:
                 data = load_project_data(filename="MarCell_data.yaml")
                 project_info = {
                     "name": project_name,
@@ -374,6 +369,7 @@ def run_gui():
                 messagebox.showinfo("Success", f"Project '{project_name}' created at: {project_path}")
             except Exception as e:
                 messagebox.showerror("Error", f"Could not create project because of the following exception: {e}")
+
             #create_window.destroy()
         tk.Label(create_window, text="Cellpose model name: ").grid(row=7, column=0, padx=10, pady=10, sticky='w')
         cellpose_name_entry = tk.Entry(create_window, width=50)
@@ -477,7 +473,7 @@ def run_gui():
 
     create_button.pack(side=tk.LEFT, padx=20)  # Add some padding to the sides
     open_button.pack(side=tk.RIGHT, padx=20)
-    copyright_label = tk.Label(root, text="Ⓜ 2024 MarCell", font=("Arial", 10))
+    copyright_label = tk.Label(root, text="☕ 2024 MarCell", font=("Arial", 10))
     copyright_label.pack(side=tk.BOTTOM, pady=5)
 
     root.mainloop()
