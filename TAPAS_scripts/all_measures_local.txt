@@ -5,14 +5,14 @@ image:?image?-seg.tif
 
 // Distance to line
 process:distanceLine
-dir:
+dir:C:/Users/Thenzing/Julien/TAPAS-Thomas\grtrtg\grtrtgextraction\distance\ 
 file:?image?-distanceLine.csv
 scalexy : 0.5
 
 // Measurements
 process:measureGeom
 //coord
-dir: 
+dir:C:/Users/Thenzing/Julien/TAPAS-Thomas\grtrtg\grtrtgextraction\coordinates\ 
 file:?image?-centroid.csv
 list:centroid
 
@@ -25,7 +25,7 @@ linkName:raw
 // Measurements
 process:measureGeom
 //volume
-dir: 
+dir:C:/Users/Thenzing/Julien/TAPAS-Thomas\grtrtg\grtrtgextraction\volume\ 
 file:?image?-volume.csv
 list:volume
 
@@ -33,5 +33,5 @@ list:volume
 process:measureIntensity
 fileRaw:LINK_raw
 list:all
-dir: 
+dir:C:/Users/Thenzing/Julien/TAPAS-Thomas\grtrtg\grtrtgextraction\intensity\ 
 file:?image?-quantif.csv

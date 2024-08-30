@@ -7,7 +7,7 @@ image:?image?-pre
 
 // Save the scale calibration properties
 process:calibrationSave
-dir:
+dir:C:/Users/Thenzing/Julien/TAPAS-Thomas\grtrtg\grtrtgextraction\calibration\ 
 file:?image?-calibration.txt
 
 process:save
@@ -16,9 +16,9 @@ file:cellpose.tif
 
 // Executable file //// 2D ou 3D CELLPOSE
 process:exe
-dir: 
+dir:c:\Users\Thenzing\Julien\Workflow\Notebooks\..\TAPAS_scripts 
 //name
-file:
+file:runCellpose2D-reelin-2023bat.bat 
 arg:?home?\tmpcellpose\
 
 // Loading from file using ImageJ
@@ -28,7 +28,7 @@ file:cellpose_cp_masks.tif
 
 // Load the scale calibration properties and apply it
 process:calibrationLoadAndApply
-dir:
+dir:C:/Users/Thenzing/Julien/TAPAS-Thomas\grtrtg\grtrtgextraction\calibration\ 
 file:?image?-calibration.txt
 
 process:output

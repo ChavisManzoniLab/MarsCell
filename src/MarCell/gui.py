@@ -5,72 +5,73 @@ from tkinter import messagebox
 import os
 import yaml
 import time
-import MarCell as mc
+from .functions_script import *
+
 def run_gui():
     ROI_list=['No ROI','Line']
 
     def initialise_project(path_to_tapas_scripts, specify_channel, scale_x, scale_y,zMin,zMax, path_to_folder, name_extraction, cellpose_name):
-        mc.initialisation(path_to_folder, name_extraction)
-        mc.change_channel(path_to_tapas_scripts, specify_channel)
-        tapas_file = '01_tapas-preprocess-ROI.txt'
+        initialisation(path_to_folder, name_extraction)
+        change_channel(path_to_tapas_scripts, specify_channel)
+        tapas_file = '01_tapas-preprocess.txt'
         pattern = 'process:scale'
         text_replacement = 'scalex:'+str(scale_x)+'\n'
-        mc.change_path(path_to_tapas_scripts, tapas_file, pattern, text_replacement)
+        change_path(path_to_tapas_scripts, tapas_file, pattern, text_replacement)
 
-        tapas_file = '01_tapas-preprocess-ROI.txt'
+        tapas_file = '01_tapas-preprocess.txt'
         pattern = 'scalex:'+str(scale_x)
         text_replacement = 'scaley:'+str(scale_y)+'\n'
-        mc.change_path(path_to_tapas_scripts, tapas_file, pattern, text_replacement)
+        change_path(path_to_tapas_scripts, tapas_file, pattern, text_replacement)
     
-        tapas_file = '01_tapas-preprocess-ROI.txt'
+        tapas_file = '01_tapas-preprocess.txt'
         pattern = 'process:cropZ'
         text_replacement = 'zMin:'+str(zMin)+'\n'
-        mc.change_path(path_to_tapas_scripts, tapas_file, pattern, text_replacement)
+        change_path(path_to_tapas_scripts, tapas_file, pattern, text_replacement)
 
-        tapas_file = '01_tapas-preprocess-ROI.txt'
+        tapas_file = '01_tapas-preprocess.txt'
         pattern = 'zMin:'
         text_replacement = 'zMax:'+str(zMax)+'\n'
-        mc.change_path(path_to_tapas_scripts, tapas_file, pattern, text_replacement)
+        change_path(path_to_tapas_scripts, tapas_file, pattern, text_replacement)
 
 
-        tapas_file = '02a_tapas-cellpose-reelin.txt'
+        tapas_file = '02a_tapas-cellpose.txt'
         pattern = "process:calibration"
         text_replacement = 'dir:'+path_to_folder+"\\"+name_extraction+"\calibration\ \n"
-        mc.change_path(path_to_tapas_scripts, tapas_file, pattern, text_replacement)
+        change_path(path_to_tapas_scripts, tapas_file, pattern, text_replacement)
 
-        tapas_file = '02a_tapas-cellpose-reelin.txt'
+        tapas_file = '02a_tapas-cellpose.txt'
         pattern = "process:exe"
         text_replacement = 'dir:'+path_to_tapas_scripts + " \n"
-        mc.change_path(path_to_tapas_scripts, tapas_file, pattern, text_replacement)
+        change_path(path_to_tapas_scripts, tapas_file, pattern, text_replacement)
 
         pattern = "//name"
         text_replacement = 'file:'+cellpose_name + " \n"
-        mc.change_path(path_to_tapas_scripts, tapas_file, pattern, text_replacement)
+        change_path(path_to_tapas_scripts, tapas_file, pattern, text_replacement)
 
         tapas_file = 'all_measures_local.txt'
         pattern = "process:distanceLine"
         text_replacement = 'dir:'+path_to_folder+"\\"+name_extraction+"\\distance\ \n"
-        mc.change_path(path_to_tapas_scripts, tapas_file, pattern, text_replacement)
+        change_path(path_to_tapas_scripts, tapas_file, pattern, text_replacement)
 
         tapas_file = 'all_measures_local.txt'
         pattern = "//coord"
         text_replacement = 'dir:'+path_to_folder+"\\"+name_extraction+"\\coordinates\ \n"
-        mc.change_path(path_to_tapas_scripts, tapas_file, pattern, text_replacement)
+        change_path(path_to_tapas_scripts, tapas_file, pattern, text_replacement)
 
         tapas_file = 'all_measures_local.txt'
         pattern = "//volume"
         text_replacement = 'dir:'+path_to_folder+"\\"+name_extraction+"\\volume\ \n"
-        mc.change_path(path_to_tapas_scripts, tapas_file, pattern, text_replacement)
+        change_path(path_to_tapas_scripts, tapas_file, pattern, text_replacement)
 
         tapas_file = 'all_measures_local.txt'
         pattern = "list:all"
         text_replacement = 'dir:'+path_to_folder+"\\"+name_extraction+"\\intensity\ \n"
-        mc.change_path(path_to_tapas_scripts, tapas_file, pattern, text_replacement)
+        change_path(path_to_tapas_scripts, tapas_file, pattern, text_replacement)
 
         tapas_file = 'all_measures_local.txt'
         pattern = "process:calibrationSave"
         text_replacement = 'dir:'+path_to_folder+"\\"+name_extraction+"\\calibration\ \n"
-        mc.change_path(path_to_tapas_scripts, tapas_file, pattern, text_replacement)
+        change_path(path_to_tapas_scripts, tapas_file, pattern, text_replacement)
     
     def open_project():
         file_path = filedialog.askopenfilename(title='Open a file',
@@ -135,7 +136,7 @@ def run_gui():
         tapas_path_entry.insert(0, project_data['tapas_path'])
 
         def extract_project(path_to_folder, name_extraction, separator, structure, ID, ROI='line'):
-            mc.extract(path_to_folder, name_extraction, separator, structure, ID, ROI='line')
+            extract(path_to_folder, name_extraction, separator, structure, ID, ROI='line')
 
         def save_project():
             try:
@@ -478,5 +479,3 @@ def run_gui():
 
     root.mainloop()
 
-if __name__ == "__main__":
-    run_gui()

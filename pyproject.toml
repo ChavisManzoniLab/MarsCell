@@ -22,7 +22,7 @@ dependencies = [
     'PyYAML==6.0.1']
 
 [project.scripts]
-gui = "MarCell.gui:run_gui"
+gui = "MarCell.gui:launch_gui"
 
 
 [tool.setuptools.packages.find]
