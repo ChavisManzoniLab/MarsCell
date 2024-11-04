@@ -88,8 +88,8 @@ def extract(path_to_folder, name_extraction, separator, structure, ID, ROI, thre
     err_ID = 0 #used to print only once that there is an error with creating the ID
     err_ROI = 0
 
-    path_name = os.path.join(path_to_folder, name_extraction, "extraction_data")
-
+    path_name = os.path.join(path_to_folder, name_extraction)
+    print(path_name)
     #1. Access to the calibration data
 
     calib_path = os.path.join(path_name, "calibration")

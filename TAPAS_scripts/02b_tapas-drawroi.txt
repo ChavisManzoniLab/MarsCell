@@ -3,13 +3,13 @@ process:noInput
 
 // Set a OMERO link to an image
 process:link
-dataset:?dataset?
+dataset:?dataset?-analysis
 image:?image?-pre
 linkName:raw
 
 // Input image
 process:input
-dataset:?dataset?
+dataset:?dataset?-analysis
 image:?image?-seg.tif
 
 // drawroi
@@ -18,5 +18,5 @@ fileRaw:LINK_raw
 
 // Output image
 process:output
-dataset:?dataset?
+dataset:?dataset?-analysis
 image:?image?-roi.tif

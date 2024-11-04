@@ -1,20 +1,11 @@
 import os
 import requests
-
-def ensure_folder_exists():
-    folder_path = "path/to/your/folder"  # Update this path as needed
-
-    if not os.path.exists(folder_path):
-        print(f"Folder '{folder_path}' does not exist. Creating folder...")
-        os.makedirs(folder_path)
-        print(f"Folder '{folder_path}' created.")
-        download_files_from_github(folder_path)
-    else:
-        print(f"Folder '{folder_path}' already exists.")
+import yaml
+from os.path import expanduser
 
 def download_files_from_github(folder_path):
     # Example GitHub URL - adjust to match your file structure
-    file_url = "https://github.com/username/repo/raw/main/path/to/file"
+    file_url = "https://github.com/ChavisManzoniLab/MarCell/tree/main/TAPAS_scripts"
     file_name = "downloaded_file.ext"  # Adjust filename and extension
     file_path = os.path.join(folder_path, file_name)
     
@@ -28,6 +19,22 @@ def download_files_from_github(folder_path):
     else:
         print("Failed to download file. Status code:", response.status_code)
         raise Exception("Failed to download files from GitHub.")
+
+def initialisation():
+    
+    home = expanduser("~")
+    folder_name='MarCell'
+    folder_path=os.path.join(home, folder_name)
+    if not os.path.isdir(folder_path):
+        print('Creating MarCell folder')
+        os.makedirs(os.path.join(folder_path, 'TAPAS_scripts'))
+        os.makedirs(os.path.join(folder_path, 'Notebooks'))
+        
+
+def ensure_folder_exists():
+    print('a')
+
+
     
 def ho():
     print('hiiiii')

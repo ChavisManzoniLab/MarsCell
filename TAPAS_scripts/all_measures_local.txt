@@ -1,37 +1,37 @@
 // Input image reelin seg
 process:input
 dataset:?dataset?
-image:?image?-seg.tif
+image:?image?_cp_masksmars.tif
 
 // Distance to line
 process:distanceLine
-dir:C:/Users/Thenzing/Julien/TAPAS-Thomas\grtrtg\grtrtgextraction\distance\ 
+dir:C:/Users/Thenzing/Julien/TAPAS-Thomas\groundtruth3D\groundtruth3Dextraction\distance\ 
 file:?image?-distanceLine.csv
 scalexy : 0.5
 
 // Measurements
 process:measureGeom
 //coord
-dir:C:/Users/Thenzing/Julien/TAPAS-Thomas\grtrtg\grtrtgextraction\coordinates\ 
+dir:C:/Users/Thenzing/Julien/TAPAS-Thomas\groundtruth3D\groundtruth3Dextraction\coordinates\ 
 file:?image?-centroid.csv
 list:centroid
 
 // link raw image reelin pre
 process:link
 dataset:?dataset?
-image:?image?-scaled
+image:?image?
 linkName:raw
 
 // Measurements
 process:measureGeom
 //volume
-dir:C:/Users/Thenzing/Julien/TAPAS-Thomas\grtrtg\grtrtgextraction\volume\ 
+dir:C:/Users/Thenzing/Julien/TAPAS-Thomas\groundtruth3D\groundtruth3Dextraction\volume\ 
 file:?image?-volume.csv
-list:volume
+list:all
 
 // Signal quantification
 process:measureIntensity
 fileRaw:LINK_raw
 list:all
-dir:C:/Users/Thenzing/Julien/TAPAS-Thomas\grtrtg\grtrtgextraction\intensity\ 
+dir:C:/Users/Thenzing/Julien/TAPAS-Thomas\groundtruth3D\groundtruth3Dextraction\intensity\ 
 file:?image?-quantif.csv

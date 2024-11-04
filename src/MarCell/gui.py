@@ -5,7 +5,8 @@ from tkinter import messagebox
 import os
 import yaml
 import time
-from .functions_script import *
+from MarCell.functions_script import *
+#from functions_script import *
 
 def run_gui():
     ROI_list=['No ROI','Line']
@@ -192,7 +193,7 @@ def run_gui():
         save_button = tk.Button(project_window, text="Save Project", command=save_project)
         save_button.grid(row=12, column=1, pady=10)
         
-
+        data = load_project_data(filename=data_path)
         extract_button = tk.Button(project_window, text="Extract data", command=lambda:extract_project(path_to_folder, project_name+'extraction', data['convention'][selected_convention.get()]['separator'], data['convention'][selected_convention.get()]['convention'], data['convention'][selected_convention.get()]['ID'], ROI='line'))
         extract_button.grid(row=11, column=2, pady=10)
         # Initial load of options
@@ -226,14 +227,14 @@ def run_gui():
         try:
             convention_list = convention.split(',')
             ID_list = ID_txt.split(',')
-            with open('MarCell_data.yaml', 'r') as f:
+            with open(data_path, 'r') as f:
                 data = yaml.safe_load(f)
             if 'convention' not in data:
                 data['convention'] = {}
             data['convention'][name] = {'convention': convention_list, 'separator': separator, 'ID': ID_list}
 
             # Save the updated data back to the YAML file
-            with open('MarCell_data.yaml', 'w') as f:
+            with open(data_path, 'w') as f:
                 yaml.safe_dump(data, f)
 
             # Refresh the options in the OptionMenu
@@ -304,7 +305,7 @@ def run_gui():
         display_convention_label.grid(row=4, column=0, padx=10, pady=10, columnspan=3)
 
         def on_option_change(*args):
-            data = load_project_data(filename="MarCell_data.yaml")
+            data = load_project_data(filename=data_path)
             selected_value = selected_convention.get()
             if selected_value in data['convention']:
                 conv = data['convention'][selected_value]['convention']
@@ -346,7 +347,7 @@ def run_gui():
             project_path = os.path.join(folder_path, project_name)
             try:
                 os.makedirs(project_path)
-                data = load_project_data(filename="MarCell_data.yaml")
+                data = load_project_data(filename=data_path)
                 project_info = {
                     "name": project_name,
                     "date created":time.strftime("%A %d %B %Y %H:%M:%S"),
@@ -407,14 +408,14 @@ def run_gui():
         # Initial load of options
         refresh_options()
 
-    def load_project_data(filename="MarCell_data.yaml"):
+    def load_project_data(filename):
         with open(filename, 'r') as file:
             data = yaml.safe_load(file)
         return data
 
     def load_options_from_yaml():
         """Load options from a YAML file."""
-        with open('MarCell_data.yaml', 'r') as f:
+        with open(data_path, 'r') as f:
             data = yaml.safe_load(f)
         return list(data['convention'].keys())
 
@@ -434,7 +435,36 @@ def run_gui():
 
     # Initialize global data and path
     global data
-    data = load_project_data(filename="MarCell_data.yaml")
+    script_directory=os.path.abspath(__file__)
+    data_path=os.path.join(script_directory,"..", "MarCell_data.yaml")
+    try:
+        data = load_project_data(filename=data_path)
+    except:
+        tapas_directory = os.path.join(os.path.abspath(__file__), "..", "TAPAS_scripts")
+        def save_project_data(data, filename= data_path):
+            with open(filename, 'w') as file:
+                yaml.dump(data, file, default_flow_style=False)
+
+        # Base project data
+        project_info = {
+            "name": "MarCell_data",
+            "description": "This is a storage file for data useful to MarCell.",
+            "convention": {
+            },
+            "tapas_path": tapas_directory,
+            "cellpose_model": "runCellpose2D-reelin-2023bat.bat",
+        }
+
+        # Save the data to YAML
+        if not os.path.isdir(os.path.join(script_directory, "..","MarCell_data.yaml")):
+            print(not os.path.isdir(os.path.join(script_directory, "..","MarCell_data.yaml")))
+            save_project_data(project_info, filename=data_path)
+            print('saved')
+        else:
+            print('already a doc')
+        data = load_project_data(filename=data_path)
+
+
     tapas_path = data.get("tapas_path", "")
     cellpose_model = data.get("cellpose_model", "")
 
@@ -442,7 +472,7 @@ def run_gui():
     root = tk.Tk()
     root.title("MarCell")
     root_width = 400
-    root_height = 200
+    root_height = 200 
 
     # Get the screen's width and height
     screen_width = root.winfo_screenwidth()
@@ -479,3 +509,4 @@ def run_gui():
 
     root.mainloop()
 
+run_gui()

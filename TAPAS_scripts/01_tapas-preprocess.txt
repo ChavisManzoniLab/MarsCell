@@ -2,21 +2,23 @@
 // to read image from OMERO 
 // or from file 
 process:input 
-1
 
 // Clear outside rois
-process:maskFromROI
+//process:maskFromROI
 
 // Scaling
-//process:scale
-//scalex:0.5
-//scaley:0.5
+process:scale
+scalex:1
+scaley:1
 
 // Crop in Z
 //process:cropZ
 //zMin:0
 //zMax:18
 
+process:createDataset
+datasetName:?dataset?-analysis
+
 process:output
-dataset:?dataset?
+dataset:?dataset?-analysis
 image:?image?-pre

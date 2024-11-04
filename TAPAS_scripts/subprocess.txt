@@ -1,0 +1,22 @@
+// No input required
+process:noInput
+
+// Execute sub-process
+process:subProcess
+dir:C:\Users\Thenzing\Julien\Workflow\TAPAS_scripts
+file:01_tapas-preprocess.txt
+
+// Execute sub-process
+process:subProcess
+dir:C:\Users\Thenzing\Julien\Workflow\TAPAS_scripts
+file:02a_tapas-cellpose.txt
+
+// Execute sub-process
+//process:subProcess
+//dir:C:\Users\Thenzing\Julien\Workflow\TAPAS_scripts
+//file:02b_tapas-drawroi.txt
+
+// Execute sub-process
+process:subProcess
+dir:C:\Users\Thenzing\Julien\Workflow\TAPAS_scripts
+file:all_measures_local.txt

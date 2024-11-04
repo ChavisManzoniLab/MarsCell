@@ -19,10 +19,11 @@ dependencies = [
     'plotly==5.18.0',
     'scipy==1.10.1',
     'cellpose==2.1.1',
-    'PyYAML==6.0.1']
+    'PyYAML==6.0.1',
+    'requests==2.32.3']
 
 [project.scripts]
-gui = "MarCell.gui:launch_gui"
+gui = "MarCell:main"
 
 
 [tool.setuptools.packages.find]

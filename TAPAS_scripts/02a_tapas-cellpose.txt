@@ -2,12 +2,12 @@
 // to read image from OMERO 
 // or from file 
 process:input
-dataset:?dataset?
+dataset:?dataset?-analysis
 image:?image?-pre
 
 // Save the scale calibration properties
 process:calibrationSave
-dir:C:/Users/Thenzing/Julien/TAPAS-Thomas\grtrtg\grtrtgextraction\calibration\ 
+dir:C:/Users/Thenzing/Julien/TAPAS-Thomas\groundtruth3D\groundtruth3Dextraction\calibration\ 
 file:?image?-calibration.txt
 
 process:save
@@ -16,7 +16,7 @@ file:cellpose.tif
 
 // Executable file //// 2D ou 3D CELLPOSE
 process:exe
-dir:c:\Users\Thenzing\Julien\Workflow\Notebooks\..\TAPAS_scripts 
+dir:C:\Users\Thenzing\Julien\Workflow\TAPAS_scripts 
 //name
 file:runCellpose2D-reelin-2023bat.bat 
 arg:?home?\tmpcellpose\
@@ -28,11 +28,11 @@ file:cellpose_cp_masks.tif
 
 // Load the scale calibration properties and apply it
 process:calibrationLoadAndApply
-dir:C:/Users/Thenzing/Julien/TAPAS-Thomas\grtrtg\grtrtgextraction\calibration\ 
+dir:C:/Users/Thenzing/Julien/TAPAS-Thomas\groundtruth3D\groundtruth3Dextraction\calibration\ 
 file:?image?-calibration.txt
 
 process:output
-dataset:?dataset?
+dataset:?dataset?-analysis
 image:?image?-seg.tif
 
 // delete

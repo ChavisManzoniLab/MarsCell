@@ -33,8 +33,4 @@ else:
     print('already a doc')"""
 
 # Load the data from YAML
-loaded_data = load_project_data()
-keysList = list(loaded_data['convention']['test'])
-
-
-print(keysList)
+save_project_data(project_info)
