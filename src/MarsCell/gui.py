@@ -6,7 +6,7 @@ import os
 import yaml
 import time
 from MarCell.functions_script import *
-#from functions_script import *
+
 
 def run_gui():
     ROI_list=['No ROI','Line']
@@ -194,7 +194,7 @@ def run_gui():
         save_button.grid(row=12, column=1, pady=10)
         
         data = load_project_data(filename=data_path)
-        extract_button = tk.Button(project_window, text="Extract data", command=lambda:extract_project(path_to_folder, project_name+'extraction', data['convention'][selected_convention.get()]['separator'], data['convention'][selected_convention.get()]['convention'], data['convention'][selected_convention.get()]['ID'], ROI='line'))
+        extract_button = tk.Button(project_window, text="Extract data", command=lambda:extract_project(path_to_folder, project_name+'extraction', data['convention'][selected_convention.get()]['separator'], data['convention'][selected_convention.get()]['convention'], data['convention'][selected_convention.get()]['ID'], ROI=None))
         extract_button.grid(row=11, column=2, pady=10)
         # Initial load of options
         refresh_options()
@@ -508,5 +508,3 @@ def run_gui():
     copyright_label.pack(side=tk.BOTTOM, pady=5)
 
     root.mainloop()
-
-run_gui()

@@ -158,7 +158,7 @@ def extract(path_to_folder, name_extraction, separator, structure, ID, ROI, thre
         return
     for csv in coords_csv:
         
-        name = csv.split('-')[0]
+        name = csv.rsplit('-', 1)[0]
 
         print('Merging csv for the image %s'%name)
         
@@ -193,7 +193,7 @@ def extract(path_to_folder, name_extraction, separator, structure, ID, ROI, thre
             df = pd.merge(df,df_intensity, on = 'Label', how = 'left')
         else:
             print('There was a problem while accessing the intensity data of %s'%name)
-
+        print(ROI)
         #Calculating the distances of the cells to a line
         if ROI=='line':
             distance_path = os.path.join(path_name, "distance", name+'-distanceLine.csv')
@@ -258,7 +258,7 @@ def extract(path_to_folder, name_extraction, separator, structure, ID, ROI, thre
         results = pd.read_csv(path_to_results +"\\"+csv)
         for i, item in enumerate(structure):
             try:
-                results[item] = infos[i]
+                results[item.strip()] = infos[i]
             except:
                 print("No %s in %s"%(item, csv))
                 results[item] = 'NA'

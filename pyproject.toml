@@ -20,7 +20,10 @@ dependencies = [
     'scipy==1.10.1',
     'cellpose==2.1.1',
     'PyYAML==6.0.1',
-    'requests==2.32.3']
+    'requests==2.32.3',
+    'fsspec',
+    'pathlib',
+    'github']
 
 [project.scripts]
 gui = "MarCell:main"
