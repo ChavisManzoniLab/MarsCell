@@ -5,6 +5,7 @@ import time
 
 def main():
 # Ensure necessary folder and files are in place
+    print('a')
     initialisation()
     # Launch the GUI
     run_gui()
