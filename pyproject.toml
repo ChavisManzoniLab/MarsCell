@@ -7,9 +7,7 @@ name = "MarsCell"
 version = "0.1"
 license = {file = "LICENSE"}
 description = "An AI-based workflow for automated cell detection and quantification on confocal images"
-authors = [
-  { name = "Julien Ferragu", email = "julien.ferragu@inserm.fr" },
-]
+authors = [{ name = "Julien Ferragu", email = "julien.ferragu@inserm.fr" }]
 readme = "README.md"
 requires-python = ">=3.7"
 dependencies = [
