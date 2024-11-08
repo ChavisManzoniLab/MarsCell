@@ -17,7 +17,7 @@ First, make sure that the following softwares are installed:
 
 Create a virtual environment using conda or venv, then run:
 ```bash
-pip install git+https://github.com/julienf1249/MarCell.git
+pip install git+https://github.com/ChavisManzoniLab/MarsCell.git
 ```
 This will install all the required packages to run the notebook.
 
