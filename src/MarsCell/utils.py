@@ -13,6 +13,7 @@ def download_files_from_github(folder_path):
     fs.get(fs.ls("TAPAS_scripts/"), destination.as_posix())
 
 def initialisation():
-    print('initialisation')
+    print('Startup')
+
 
     
