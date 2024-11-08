@@ -5,8 +5,7 @@ from tkinter import messagebox
 import os
 import yaml
 import time
-from MarCell.functions_script import *
-
+from MarsCell.functions_script import *
 
 def run_gui():
     ROI_list=['No ROI','Line']

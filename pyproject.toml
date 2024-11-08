@@ -21,7 +21,7 @@ dependencies = [
     'PyYAML==6.0.1',
     'requests==2.32.3']
 
-[project.gui-scripts]
+[project.scripts]
 gui = "MarsCell:main"
 
 [tool.setuptools.package-dir]
