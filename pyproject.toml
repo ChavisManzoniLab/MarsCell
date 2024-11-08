@@ -27,3 +27,5 @@ gui = "MarsCell:main"
 [tool.setuptools.package-dir]
 "" = "src"
 
+[tool.setuptools.package-data]
+"MarsCell.data" = ["*.txt", "*.bat","Reelin_P40_advanced"]
