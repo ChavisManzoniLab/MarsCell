@@ -1,7 +1,7 @@
 # Methodology
 
 ## Description (to change)
-CACAO is an AI-based workflow for automated cell detection and quantification on confocal images.
+MarsCell is an AI-based workflow for automated cell detection and quantification on confocal images.
 It is based on TAPAS, an ImageJ plugin, completed with Cellpose, an automatic cell-segmentation tool, and a Jupyter Notebook to ensure accessibility to everyone.
 
 ## Step by Step Process
