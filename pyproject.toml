@@ -26,7 +26,7 @@ dependencies = [
     'github']
 
 [project.scripts]
-gui = "MarCell:main"
+gui = "MarsCell:main"
 
 
 [tool.setuptools.packages.find]
