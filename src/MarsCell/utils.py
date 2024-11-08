@@ -13,27 +13,8 @@ def download_files_from_github(folder_path):
     fs.get(fs.ls("TAPAS_scripts/"), destination.as_posix())
 
 def initialisation():
+    print('initialisation')
 
-    home = os.path.expanduser('~')
-    folder_name='MarsCell'
-    folder_path=os.path.join(home, folder_name)
-    tapas_directory=os.path.join(folder_path, 'TAPAS_scripts')
-    notebooks_directory = os.path.join(folder_path, 'Notebooks')
-    if not os.path.isdir(folder_path):
-        print('Creating MarCell folder')
-        
-        os.makedirs(tapas_directory)
-        
-        os.makedirs(notebooks_directory)
-
-    tapas_directory = os.path.join(home, "..", "TAPAS_scripts")
-    destination = tapas_directory
-    """fs = fsspec.filesystem("github", org="ChavisManzoniLab", repo="MarCell")
-    fs.get(fs.ls("TAPAS_scripts/"), destination)"""
-    
-    fs = fsspec.filesystem("github", org="ChavisManzoniLab", repo="MarCell")
-    fs.get(fs.ls("TAPAS_scripts/"), destination.as_posix())
-    
     def save_project_data(data, filename= os.path.join(home, "..","MarCell_data.yaml")):
         with open(filename, 'w') as file:
             yaml.dump(data, file, default_flow_style=False)
@@ -50,7 +31,7 @@ def initialisation():
         "description": "This is a storage file for data useful to MarCell.",
         "convention": {
         },
-        "tapas_path": tapas_directory,
+        "tapas_path": 
         "cellpose_model": "runCellpose2D-reelin-2023bat.bat",
     }
 
@@ -63,6 +44,5 @@ def initialisation():
         print('already a doc')"""
 
     # Load the data from YAML
-    save_project_data(project_info)
-        
-initialisation()
+
+    
