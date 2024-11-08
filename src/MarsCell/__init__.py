@@ -8,7 +8,7 @@ def main():
     print('a')
     initialisation()
     # Launch the GUI
-    run_gui()
+    #run_gui()
 
 if __name__ == "__main__":
     main()
