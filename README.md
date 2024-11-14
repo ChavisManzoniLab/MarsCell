@@ -28,6 +28,7 @@ ModuleNotFoundError: No module named 'distutils'
 run 
 ```bash
 pip install setuptools
+pip install git+https://github.com/ChavisManzoniLab/MarsCell.git
 ```
 
 The notebook will be used to help with the initialisation of the workflow and to format data. 
