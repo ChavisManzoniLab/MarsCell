@@ -21,6 +21,16 @@ pip install git+https://github.com/ChavisManzoniLab/MarsCell.git
 ```
 This will install all the required packages to run the notebook.
 
+If error :
+```bash
+ModuleNotFoundError: No module named 'distutils'
+```
+run 
+```bash
+pip install setuptools
+pip install git+https://github.com/ChavisManzoniLab/MarsCell.git
+```
+
 The notebook will be used to help with the initialisation of the workflow and to format data. 
 
 In the `TAPAS_scripts` folder, each text document is used to run a specific process in Fiji. 
