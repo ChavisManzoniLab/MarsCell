@@ -1,0 +1,30 @@
+cellpose_model: runCellpose2D-reelin-2023bat.bat
+convention:
+  etst:
+    ID:
+    - ee
+    convention:
+    - tetetet
+    separator: e
+  reelin_pfc:
+    ID:
+    - Batch
+    - ' Ori'
+    - ' Condition'
+    convention:
+    - Exp_Date
+    - ' Batch'
+    - ' Ori'
+    - ' Condition'
+    - ' Age'
+    - ' Sex'
+    - ' Strain'
+    - ' Marker'
+    - ' Slide_ID'
+    - ' Atlas'
+    - ' Slide_side'
+    - ' tile'
+    separator: _
+description: This is a storage file for data useful to MarCell.
+name: MarCell_data
+tapas_path: C:\Users\Thenzing\Julien\Workflow\src\MarsCell\gui.py\..\TAPAS_scripts

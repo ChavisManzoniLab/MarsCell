@@ -31,7 +31,6 @@ def change_path(path_to_tapas_scripts, tapas_file, pattern, text_replacement):
     """
     This function automatically changes the path used by the TAPAS script.
     The function detects the line that start with the specified pattern, and then change the line below with the right path.
-    It needs to work that way because every path start with 'dir' so if different paths are required in a txt, detecting the start of a line isnt sufficient
     """
     with open(os.path.join(path_to_tapas_scripts, tapas_file), "r") as file:
         lines = file.readlines()
@@ -47,6 +46,9 @@ def change_path(path_to_tapas_scripts, tapas_file, pattern, text_replacement):
         file.writelines(lines)
 
 def change_channel(path_to_tapas_scripts, specify_channel):
+    '''
+    Selects the channel to be processed
+    '''
     # Define the directory containing the files and the base string to find and replace
     directory_path = path_to_tapas_scripts
 
@@ -268,7 +270,6 @@ def extract(path_to_folder, name_extraction, separator, structure, ID, ROI, thre
     datafff = pd.concat(list_df)
     #binning step
     if ROI == 'line' and err_ROI==0:   
-        #bins = [50*i for i in range(12)]
         bins = [0, 120, 270, 500]
 
         #binning the distance
@@ -283,54 +284,16 @@ def extract(path_to_folder, name_extraction, separator, structure, ID, ROI, thre
         if err_ID==0:
             print("Error on creating mouse ID")
             err_ID=1
-        else:pass      
+        else:pass   
+   
 
     timestr = time.strftime("%Y_%m_%d-%H_%M_%S")
     
-
-    datafff.rename(columns={"Mean": "mean_intensity", "Min" : "min_intensity", "Max" : "max_intensity", "StdDev" : "intensity_sd", "Sum": "voxel_intensity_sum"}, inplace=True)
+    try:
+        datafff.rename(columns={"Mean": "mean_intensity", "Min" : "min_intensity", "Max" : "max_intensity", "StdDev" : "intensity_sd", "Sum": "voxel_intensity_sum"}, inplace=True)
+    except:pass
     datafff.to_csv(path_name+"\\extraction_"+timestr+".csv")
     print('Saved the csv with all the data')
 
 
 
-def extract_sex(df): #returns a dataframe for each sex
-    males = df.loc[df['Sex']=='M'].copy()
-    females = df.loc[df['Sex']=='F'].copy()
-    return males, females
-
-
-def extract_conditions(df): #returns a dataframe for each condition
-    naive = df.loc[df['Condition']=='Naive'].copy()
-    #veh = df.loc[df['Condition']=='Veh'].copy()
-    srwin = df.loc[df['Condition']=='SRWin'].copy()
-    win = df.loc[df['Condition']=='Win'].copy()
-
-    return naive, srwin, win
-
-
-def extract_figures(df): #returns a dataframe for each figure
-    fig9 =  df.loc[df['Figure']==9].copy()
-    fig10 =  df.loc[df['Figure']==10].copy()
-    fig11 =  df.loc[df['Figure']==11].copy()
-    fig12 =  df.loc[df['Figure']==12].copy()
-    fig13 =  df.loc[df['Figure']==13].copy()
-    fig14 =  df.loc[df['Figure']==14].copy()
-    fig15 =  df.loc[df['Figure']==15].copy()
-
-    return fig9, fig10, fig11, fig12, fig13, fig14, fig15
-
-
-def distribution_plot(df): 
-    sns.displot(df, x="distUnit", hue="Condition", kind="kde", multiple="stack", common_norm=False, bw_adjust=0.4)
-    plt.show()
-
-
-def displot_3D(df, title): #create a 3D plot of cell density / distance to the line and along figures
-    kde = gaussian_kde([df['distUnit'], df['Figure']], bw_method=0.3)
-    x_grid, y_grid = np.meshgrid(np.linspace(df['distUnit'].min(), df['distUnit'].max(), 100),
-                                np.linspace(df['Figure'].min(), df['Figure'].max(), 100))
-    z = np.reshape(kde([x_grid.flatten(), y_grid.flatten()]), x_grid.shape)
-    fig = go.Figure(data=[go.Surface(z=z, x=x_grid, y=y_grid)])
-    fig.update_layout(scene=dict(xaxis_title='Distance (µm)', yaxis_title='Figure', zaxis_title='Density'), title=title)
-    fig.show()

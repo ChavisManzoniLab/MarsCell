@@ -1,33 +1,56 @@
 import os
 import yaml
+import sys
 
 def initialisation():
+    '''
+    Creates a YAML file to store useful data for MarsCell: naming convention, path to TAPAS files, the Cellpose model to use
+    '''
 
-    def save_project_data(data, filename):
-        with open(filename, 'w') as file:
-            yaml.dump(data, file, default_flow_style=False)
+    root = os.path.dirname(__file__)
+    marscell_data_path = os.path.join(root, "data","MarsCell_data.yaml")
+    
+    if not os.path.isfile(marscell_data_path):
 
-    root = os.path.expanduser('~')
+        #function to save data file as yaml
+        def save_project_data(data, filepath):
+            with open(filepath, 'w') as file:
+                yaml.dump(data, file, default_flow_style=False)
 
-    marscell_data_path = os.path.join(root, "data","MarCell_data.yaml")
+        print('No data file found. Creating one...')
 
-    # Save the data to YAML
-    if not os.path.isdir(marscell_data_path):
-        print(not os.path.isdir(marscell_data_path))
-        tapas_path = os.path.join(root, 'data')
+        data_path = os.path.join(root, 'data')
 
+
+        #setting the right paths to run cellpose
+        runcellpose_path = os.path.join(data_path, "runCellpose.bat")
+        venv_path = sys.prefix
+        venv_path = os.path.join(venv_path, 'Scripts', 'python')
+        model_path = os.path.join(data_path, 'Reelin_P40_advanced')
+
+        with open(runcellpose_path, 'r') as file:
+            filedata = file.read()
+
+        filedata = filedata.replace('path_cellpose_env', venv_path)
+        filedata = filedata.replace('path_model_Reelin_P40_advanced', model_path)
+
+        with open(runcellpose_path, 'w') as file:
+            file.write(filedata)
+
+
+        #creating a data file to store title conventions, path to tapas files, name of the Cellpose model to run
         project_info = {
             "name": "MarsCell",
             "description": "This is a storage file for data useful to MarsCell.",
             "convention": {
             },
-            "tapas_path": tapas_path,
-            "cellpose_model": "runCellpose2D-reelin-2023bat.bat",
+            "tapas_path": data_path,
+            "cellpose_model": "runCellpose.bat",
         }
-        save_project_data(project_info)
+        save_project_data(project_info, marscell_data_path)
         print('Data file created')
     else:
-        print('...')
+        print('Launching ...')
 
 
     

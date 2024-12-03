@@ -11,7 +11,12 @@ def run_gui():
     ROI_list=['No ROI','Line']
 
     def initialise_project(path_to_tapas_scripts, specify_channel, scale_x, scale_y,zMin,zMax, path_to_folder, name_extraction, cellpose_name):
-        initialisation(path_to_folder, name_extraction)
+        try:
+            initialisation(path_to_folder, name_extraction)
+        except FileExistsError as fe:
+            print("The folder \"%s\" already exists"%name_extraction)
+        except Exception: pass
+
         change_channel(path_to_tapas_scripts, specify_channel)
         tapas_file = '01_tapas-preprocess.txt'
         pattern = 'process:scale'
@@ -79,7 +84,6 @@ def run_gui():
             )
         with open(file_path, 'r') as file:
             project_data = yaml.safe_load(file)
-        print(project_data)
         project_name=project_data['name']
         project_window = tk.Toplevel(root)
         project_window.geometry('700x700')
@@ -87,10 +91,22 @@ def run_gui():
         project_window.columnconfigure([0,1,2], weight=1, minsize=50)
         project_window.rowconfigure([0,1,2,3,4,5,6,8,9,10,11], weight=1)
 
+        #change paths in tapas files when  project is opened
+        path_to_tapas_scripts=project_data["tapas_path"]
+        specify_channel=project_data["image_channel"]
+        scale_x=project_data["scale_x_entry"]
+        scale_y=project_data["scale_y_entry"]
+        zMin=project_data["z_cropmin"]
+        zMax=project_data["z_cropmax"]
+        path_to_folder=file_path.replace(project_name+'.yaml', '')
+        name_extraction=project_name
+        cellpose_name=project_data["cellpose_model"]
+        initialise_project(path_to_tapas_scripts, specify_channel, scale_x, scale_y,zMin,zMax, path_to_folder, name_extraction, cellpose_name)
+
         tk.Label(project_window, text="Project Name:").grid(row=0, column=0, padx=10, pady=10)
         tk.Label(project_window, text= project_name).grid(row=0, column=1, padx=10, pady=10)
 
-        path_to_folder=file_path.replace(project_name+'.yaml', '')
+        
         tk.Label(project_window, text="Save Location:").grid(row=1, column=0, padx=10, pady=10)
         tk.Label(project_window, text=path_to_folder).grid(row=1, column=1, padx=10, pady=10)
 
@@ -434,34 +450,13 @@ def run_gui():
 
     # Initialize global data and path
     global data
-    script_directory=os.path.abspath(__file__)
-    data_path=os.path.join(script_directory,"..", "MarCell_data.yaml")
+    root = os.path.dirname(__file__)
+    data_path=os.path.join(root,'data', 'MarsCell_data.yaml')
     try:
         data = load_project_data(filename=data_path)
-    except:
-        tapas_directory = os.path.join(os.path.abspath(__file__), "..", "TAPAS_scripts")
-        def save_project_data(data, filename= data_path):
-            with open(filename, 'w') as file:
-                yaml.dump(data, file, default_flow_style=False)
+    except Exception as e:
+        print('Error while loading data file because of the following exception: ', e)
 
-        # Base project data
-        project_info = {
-            "name": "MarCell_data",
-            "description": "This is a storage file for data useful to MarCell.",
-            "convention": {
-            },
-            "tapas_path": tapas_directory,
-            "cellpose_model": "runCellpose2D-reelin-2023bat.bat",
-        }
-
-        # Save the data to YAML
-        if not os.path.isdir(os.path.join(script_directory, "..","MarCell_data.yaml")):
-            print(not os.path.isdir(os.path.join(script_directory, "..","MarCell_data.yaml")))
-            save_project_data(project_info, filename=data_path)
-            print('saved')
-        else:
-            print('already a doc')
-        data = load_project_data(filename=data_path)
 
 
     tapas_path = data.get("tapas_path", "")
