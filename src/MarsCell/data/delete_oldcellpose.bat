@@ -1,1 +1,0 @@
-C:\Path\to\your\Cellpose\env -m cellpose --dir %1 --chan 0 --pretrained_model C:\Users\Path\to\cellpose\model --diameter 0. --save_tif --no_npy --stitch_threshold 0.4 --use_gpu --anisotropy 4 --cellprob_threshold -2.0 --flow_threshold 0.5
