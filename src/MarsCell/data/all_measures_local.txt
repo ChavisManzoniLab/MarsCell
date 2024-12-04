@@ -1,7 +1,7 @@
 // Input image reelin seg
 process:input
 dataset:?dataset?
-image:?image?_cp_masksmars.tif
+image:?image?-seg.tif
 
 // Distance to line
 process:distanceLine
@@ -19,7 +19,7 @@ list:centroid
 // link raw image reelin pre
 process:link
 dataset:?dataset?
-image:?image?
+image:?image?-pre
 linkName:raw
 
 // Measurements
@@ -37,5 +37,6 @@ file:?image?-calibration.txt
 process:measureIntensity
 fileRaw:LINK_raw
 list:all
+//intensity
 dir:C:/Users/Thenzing/Julien/TAPAS-Thomas\groundtruth3D\groundtruth3Dextraction\intensity\ 
 file:?image?-quantif.csv
