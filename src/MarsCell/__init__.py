@@ -1,7 +1,7 @@
 from .functions_script import *
 from .utils import initialisation
 from .gui import run_gui
-import time
+
 
 def main():
 # Ensure necessary folder and files are in place
