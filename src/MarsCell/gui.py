@@ -69,7 +69,7 @@ def run_gui():
         change_path(path_to_tapas_scripts, tapas_file, pattern, text_replacement)
 
         tapas_file = 'all_measures_local.txt'
-        pattern = "list:all"
+        pattern = "\\intensity"
         text_replacement = 'dir:'+path_to_folder+"\\"+name_extraction+"\\intensity\ \n"
         change_path(path_to_tapas_scripts, tapas_file, pattern, text_replacement)
 
@@ -94,14 +94,14 @@ def run_gui():
         #change paths in tapas files when  project is opened
         path_to_tapas_scripts=project_data["tapas_path"]
         specify_channel=project_data["image_channel"]
-        scale_x=project_data["scale_x_entry"]
-        scale_y=project_data["scale_y_entry"]
+        scale_x=project_data["scale_x"]
+        scale_y=project_data["scale_y"]
         zMin=project_data["z_cropmin"]
         zMax=project_data["z_cropmax"]
         path_to_folder=file_path.replace(project_name+'.yaml', '')
         name_extraction=project_name
         cellpose_name=project_data["cellpose_model"]
-        initialise_project(path_to_tapas_scripts, specify_channel, scale_x, scale_y,zMin,zMax, path_to_folder, name_extraction, cellpose_name)
+        initialise_project(path_to_tapas_scripts, specify_channel, scale_x, scale_y,zMin,zMax, path_to_folder, name_extraction+'extraction', cellpose_name)
 
         tk.Label(project_window, text="Project Name:").grid(row=0, column=0, padx=10, pady=10)
         tk.Label(project_window, text= project_name).grid(row=0, column=1, padx=10, pady=10)
@@ -156,14 +156,14 @@ def run_gui():
 
         def save_project():
             try:
-                data = load_project_data(filename="MarCell_data.yaml")
+                data = load_project_data(filename=file_path)
                 project_data["tapas_path"]=tapas_path_entry.get()
                 project_data["cellpose_model"]=cellpose_name_entry.get()
                 project_data["image_channel"]=image_channel_entry.get()
                 project_data["z_cropmin"]=z_cropmin_entry.get()
                 project_data["z_cropmax"]=z_cropmax_entry.get()
-                project_data["scale_x_entry"]=scale_x_entry.get()
-                project_data["scale_y_entry"]=scale_y_entry.get()
+                project_data["scale_x"]=scale_x_entry.get()
+                project_data["scale_y"]=scale_y_entry.get()
                 project_data["convention"]={selected_convention.get():
                                 {'convention': data['convention'][selected_convention.get()]['convention'], 'separator': data['convention'][selected_convention.get()]['separator'], 'ID':data['convention'][selected_convention.get()]['ID']}}
                 project_data['ROI']=selected_ROI.get()

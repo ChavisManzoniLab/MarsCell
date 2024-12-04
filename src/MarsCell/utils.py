@@ -27,16 +27,19 @@ def initialisation():
         venv_path = sys.prefix
         venv_path = os.path.join(venv_path, 'Scripts', 'python')
         model_path = os.path.join(data_path, 'Reelin_P40_advanced')
+        try:
+            with open(runcellpose_path, 'r') as file:
+                filedata = file.read()
+            if ('path_cellpose_env' and 'path_model_Reelin_P40_advanced') or (venv_path and model_path) in filedata:
+                filedata = filedata.replace('path_cellpose_env', venv_path)
+                filedata = filedata.replace('path_model_Reelin_P40_advanced', model_path)
+            else:
+                print(f'Could not set paths automatically for Cellpose. Set the paths at {runcellpose_path}')
 
-        with open(runcellpose_path, 'r') as file:
-            filedata = file.read()
-
-        filedata = filedata.replace('path_cellpose_env', venv_path)
-        filedata = filedata.replace('path_model_Reelin_P40_advanced', model_path)
-
-        with open(runcellpose_path, 'w') as file:
-            file.write(filedata)
-
+            with open(runcellpose_path, 'w') as file:
+                file.write(filedata)
+        except Exception as e:
+            print(e)
 
         #creating a data file to store title conventions, path to tapas files, name of the Cellpose model to run
         project_info = {
