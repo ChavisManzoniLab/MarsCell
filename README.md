@@ -26,7 +26,7 @@ Using conda:
 ```bash
 conda create -n ENV_NAME python=3.9 anaconda
 ```
-
+Then run:
 ```bash
 pip install git+https://github.com/ChavisManzoniLab/MarsCell.git
 ```
