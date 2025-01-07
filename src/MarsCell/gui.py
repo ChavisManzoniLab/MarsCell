@@ -451,9 +451,13 @@ def run_gui():
     # Initialize global data and path
     global data
     root = os.path.dirname(__file__)
-    data_path=os.path.join(root,'data', 'MarsCell_data.yaml')
+    created_path=os.path.join(root,'data', 'created.yaml')#access the path of the MarsCell folder
     try:
-        data = load_project_data(filename=data_path)
+        created = load_project_data(filename=created_path)
+        data_path=created['file_path']
+        data=load_project_data(filename=data_path)
+
+        
     except Exception as e:
         print('Error while loading data file because of the following exception: ', e)
 

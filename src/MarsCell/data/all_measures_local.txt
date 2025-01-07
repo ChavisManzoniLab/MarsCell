@@ -29,10 +29,6 @@ dir:C:/Users/Thenzing/Julien/TAPAS-Thomas\groundtruth3D\groundtruth3Dextraction\
 file:?image?-volume.csv
 list:all
 
-process:calibrationSave
-dir:C:/Users/Thenzing/Julien/TAPAS-Thomas\groundtruth3D\groundtruth3Dextraction\calibration\ 
-file:?image?-calibration.txt
-
 // Signal quantification
 process:measureIntensity
 fileRaw:LINK_raw
@@ -40,3 +36,14 @@ list:all
 //intensity
 dir:C:/Users/Thenzing/Julien/TAPAS-Thomas\groundtruth3D\groundtruth3Dextraction\intensity\ 
 file:?image?-quantif.csv
+
+// Input image reelin pre
+process:input
+dataset:?dataset?-analysis
+image:?image?-pre 
+
+process:calibrationSave
+dir:C:/Users/Thenzing/Julien/TAPAS-Thomas\groundtruth3D\groundtruth3Dextraction\calibration\ 
+file:?image?-calibration.txt
+
+

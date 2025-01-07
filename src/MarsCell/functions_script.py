@@ -270,7 +270,7 @@ def extract(path_to_folder, name_extraction, separator, structure, ID, ROI, thre
     datafff = pd.concat(list_df)
     #binning step
     if ROI == 'line' and err_ROI==0:   
-        bins = [0, 120, 270, 500]
+        bins = [0, 120, 200,300, 500]
 
         #binning the distance
         datafff['bins'] = pd.cut(datafff['distUnit'], bins)
