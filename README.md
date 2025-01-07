@@ -15,7 +15,18 @@ First, make sure that the following softwares are installed:
 - **TAPAS**: [https://imagej.net/plugins/tapas](https://imagej.net/plugins/tapas)
 - **Python 3.9**
 
-Create a virtual environment using conda or venv, then run:
+Create a virtual environment 
+Using venv:
+
+```bash
+python -m venv ENV_NAME
+```
+Using conda:
+
+```bash
+conda create -n ENV_NAME python=3.9 anaconda
+```
+
 ```bash
 pip install git+https://github.com/ChavisManzoniLab/MarsCell.git
 ```
@@ -31,6 +42,11 @@ pip install setuptools
 pip install git+https://github.com/ChavisManzoniLab/MarsCell.git
 ```
 
+If error :
+```bash
+CondaSSLError
+```
+run
 The notebook will be used to help with the initialisation of the workflow and to format data. 
 
 In the `TAPAS_scripts` folder, each text document is used to run a specific process in Fiji. 
