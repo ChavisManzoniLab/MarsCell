@@ -6,6 +6,7 @@ import os
 import yaml
 import time
 from MarsCell.functions_script import *
+from shutil import copy2
 
 def run_gui():
     ROI_list=['No ROI','Line']
@@ -46,7 +47,7 @@ def run_gui():
 
         tapas_file = '02a_tapas-cellpose.txt'
         pattern = "process:exe"
-        text_replacement = 'dir:'+path_to_tapas_scripts + " \n"
+        text_replacement = 'dir:'+path_to_tapas_scripts+'/../Models' + " \n"
         change_path(path_to_tapas_scripts, tapas_file, pattern, text_replacement)
 
         pattern = "//name"
@@ -382,7 +383,13 @@ def run_gui():
                 }
                 with open(os.path.join(project_path, f"{project_name}.yaml"), 'w') as file:
                     yaml.dump(project_info, file, default_flow_style=False)
-                initialise_project(tapas_path_entry.get(), image_channel_entry.get(), scale_x_entry.get(), scale_y_entry.get(),z_cropmin_entry.get(),z_cropmax_entry.get(), project_path, project_name+'extraction', cellpose_name_entry.get())
+
+                project_tapas_path=os.path.join(project_path, "TAPAS")
+                os.makedirs(project_tapas_path)
+                for file in os.listdir(data['tapas_path']):
+                    copy2(os.path.join(data['tapas_path'], file), project_tapas_path)
+
+                initialise_project(project_tapas_path, image_channel_entry.get(), scale_x_entry.get(), scale_y_entry.get(),z_cropmin_entry.get(),z_cropmax_entry.get(), project_path, project_name+'extraction', cellpose_name_entry.get())
                 messagebox.showinfo("Success", f"Project '{project_name}' created at: {project_path}")
             except Exception as e:
                 messagebox.showerror("Error", f"Could not create project because of the following exception: {e}")
