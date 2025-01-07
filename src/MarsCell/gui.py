@@ -92,17 +92,8 @@ def run_gui():
         project_window.columnconfigure([0,1,2], weight=1, minsize=50)
         project_window.rowconfigure([0,1,2,3,4,5,6,8,9,10,11], weight=1)
 
-        #change paths in tapas files when  project is opened
-        path_to_tapas_scripts=project_data["tapas_path"]
-        specify_channel=project_data["image_channel"]
-        scale_x=project_data["scale_x"]
-        scale_y=project_data["scale_y"]
-        zMin=project_data["z_cropmin"]
-        zMax=project_data["z_cropmax"]
         path_to_folder=file_path.replace(project_name+'.yaml', '')
-        name_extraction=project_name
-        cellpose_name=project_data["cellpose_model"]
-        initialise_project(path_to_tapas_scripts, specify_channel, scale_x, scale_y,zMin,zMax, path_to_folder, name_extraction+'extraction', cellpose_name)
+
 
         tk.Label(project_window, text="Project Name:").grid(row=0, column=0, padx=10, pady=10)
         tk.Label(project_window, text= project_name).grid(row=0, column=1, padx=10, pady=10)
