@@ -4,20 +4,18 @@
 MarsCell is an AI-based workflow for automated cell detection and quantification on confocal images.
 It is based on TAPAS, an ImageJ plugin, completed with Cellpose, an automatic cell-segmentation tool, and a Jupyter Notebook to ensure accessibility to everyone.
 
-## Step by Step Process
+## 1. Set Up
 
-### 1. Set Up
-
-#### Downloads
+### Downloads
 
 First, make sure that the following softwares are installed:
 - **Fiji**: [https://imagej.net/software/fiji/](https://imagej.net/software/fiji/)
 - **TAPAS**: [https://imagej.net/plugins/tapas](https://imagej.net/plugins/tapas)
 - **Python 3.9**: [https://www.python.org/downloads/release/python-3913/](https://www.python.org/downloads/release/python-3913/)
 
-##### Create a virtual environment   
+#### Create a virtual environment   
 
-Using venv:
+##### Using venv:
 
 ```bash
 python -m venv ENV_NAME
