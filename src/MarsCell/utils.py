@@ -44,9 +44,6 @@ def initialisation():
                     copy2(os.path.join(data_path, file), models_path)
                 
 
-
-
-
             #setting the right paths to run cellpose
             runcellpose_path = os.path.join(models_path, "runCellpose.bat")
             venv_path = sys.prefix
