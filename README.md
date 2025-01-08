@@ -50,27 +50,31 @@ pip install setuptools
 pip install git+https://github.com/ChavisManzoniLab/MarsCell.git
 ```
 
-In the `TAPAS_scripts` folder, each text document is used to run a specific process in Fiji. 
-The file `subprocess.txt` allows to run multiple processes at once, so that you do not have to manually launch each process one after the other.
-
-The `run_cellpose.bat` file is used to launch Cellpose with the provided model. You must change the paths in this file. To proceed, right-click on the file, then “Show more options”, then “Edit”.
-First, put the path to your Python environment that you just created. 
-The second path is to the Cellpose model you are going to use. You can use the model available in the github directory, or create a model that suits better your analysis workflow.
-
 ## 2. Initialization
 
-### 2.1 Upload
+### 2.1 Launch MarsCell
+
+To lauch MarsCell, type the command in your activated environment:
+```bash
+gui
+```
+You will be asked to chose a repository where a 'MarsCell' folder will be created. This folder will store the Cellpose models and the TAPAS files.
+MarsCell is now ready to use!
+
+
+### 2.2 Upload on OMERO
 
 Upload your image stacks on OMERO, using OMERO.insight. Our image processing pipeline handles one dataset at a time, so ensure that all the images for a given project are included in the same dataset.
 
 To obtain layer organization data (the distance of cells to a segment), you can draw a segment using the OMERO ROI interface. Please note that currently, the workflow only supports straight lines.
 
-### 2.2 Imports
 
-Open the notebook using the Jupyter app on Anaconda or with a code editor like Visual Studio Code. In the Import section of the notebook, run the cell to import all the functions that we will need.
 
-### 2.3 Naming Convention
 
+### 2.3 Create a MarsCell Project
+Click on 'Create a project'
+
+#### Image title structure
 Specify the structure of the title of your images. Ensure that all your images follow the same naming convention to access information such as sex, age, condition. Indicate the separator used in your title to delimit the categories. Then, in the `structure` list, provide each category name in the order that they appear in the title.
 
 Example:
@@ -80,10 +84,6 @@ Example:
 separator = '_'
 structure = ['Exp_Date', 'Batch', 'Ori', 'Condition', 'Age', 'Sex', 'Strain', 'Marker', 'Slide_Id', 'Atlas', 'Slide_side']
 ```
-
-### 2.4 Setting the Paths
-
-Enter the path where your project will be saved, then enter the name of the project. Run the initialization function that will create the directory for the project. Enter the path where your TAPAS scripts are stored and the name of your batch file that runs Cellpose. Run the cell to change the paths in the TAPAS files.
 
 ### 3. Image Processing with TAPAS and Cellpose
 
