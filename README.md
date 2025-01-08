@@ -18,13 +18,23 @@ First, make sure that the following softwares are installed:
 ##### Using venv:
 
 ```bash
-python -m venv ENV_NAME
+python -m venv MarsCell_env
 ```
+Activate the virtual environment
+```bash
+MarsCell\Scripts\activate
+```
+
 ##### Using conda:
 
 ```bash
-conda create -n ENV_NAME python=3.9 anaconda
+conda create -n MarsCell_env python=3.9 anaconda
 ```
+Activate the virtual environment
+```bash
+conda activate MarsCell_env
+```
+
 ### 1.2 Install the packages:
 ```bash
 pip install git+https://github.com/ChavisManzoniLab/MarsCell.git
@@ -40,8 +50,6 @@ pip install setuptools
 pip install git+https://github.com/ChavisManzoniLab/MarsCell.git
 ```
 
-The notebook will be used to help with the initialisation of the workflow and to format data. 
-
 In the `TAPAS_scripts` folder, each text document is used to run a specific process in Fiji. 
 The file `subprocess.txt` allows to run multiple processes at once, so that you do not have to manually launch each process one after the other.
 
@@ -53,7 +61,7 @@ The second path is to the Cellpose model you are going to use. You can use the m
 
 ### 2.1 Upload
 
-Upload your image stacks on OMERO, using OMERO.insight. The image processing handles one dataset at a time, so ensure that all the image stacks for a given project are included in the same dataset.
+Upload your image stacks on OMERO, using OMERO.insight. Our image processing pipeline handles one dataset at a time, so ensure that all the images for a given project are included in the same dataset.
 
 To obtain layer organization data (the distance of cells to a segment), you can draw a segment using the OMERO ROI interface. Please note that currently, the workflow only supports straight lines.
 
