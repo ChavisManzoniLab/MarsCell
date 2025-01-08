@@ -143,8 +143,8 @@ def run_gui():
         tapas_path_entry.grid(row=6, column=1, padx=10, pady=10)
         tapas_path_entry.insert(0, project_data['tapas_path'])
 
-        def extract_project(path_to_folder, name_extraction, separator, structure, ID, ROI='line'):
-            extract(path_to_folder, name_extraction, separator, structure, ID, ROI='line')
+        def extract_project(path_to_folder, name_extraction, separator, structure, ROI='line'):
+            extract(path_to_folder, name_extraction, separator, structure, ROI='line')
 
         def save_project():
             try:
@@ -157,7 +157,7 @@ def run_gui():
                 project_data["scale_x"]=scale_x_entry.get()
                 project_data["scale_y"]=scale_y_entry.get()
                 project_data["convention"]={selected_convention.get():
-                                {'convention': data['convention'][selected_convention.get()]['convention'], 'separator': data['convention'][selected_convention.get()]['separator'], 'ID':data['convention'][selected_convention.get()]['ID']}}
+                                {'convention': data['convention'][selected_convention.get()]['convention'], 'separator': data['convention'][selected_convention.get()]['separator']}}
                 project_data['ROI']=selected_ROI.get()
 
                 with open(file_path, 'w') as file:
@@ -201,7 +201,7 @@ def run_gui():
         save_button.grid(row=12, column=1, pady=10)
         
         data = load_project_data(filename=data_path)
-        extract_button = tk.Button(project_window, text="Extract data", command=lambda:extract_project(path_to_folder, project_name+'extraction', data['convention'][selected_convention.get()]['separator'], data['convention'][selected_convention.get()]['convention'], data['convention'][selected_convention.get()]['ID'], ROI=None))
+        extract_button = tk.Button(project_window, text="Extract data", command=lambda:extract_project(path_to_folder, project_name+'extraction', data['convention'][selected_convention.get()]['separator'], data['convention'][selected_convention.get()]['convention'], ROI=None))
         extract_button.grid(row=11, column=2, pady=10)
         # Initial load of options
         refresh_options()
@@ -209,11 +209,11 @@ def run_gui():
 
         
 
-    def save_convention(convention_name_entry, convention_entry, separator_entry, ID_entry):
+    def save_convention(convention_name_entry, convention_entry, separator_entry):
         name = convention_name_entry.get()
         convention = convention_entry.get()
         separator = separator_entry.get()
-        ID_txt = ID_entry.get()
+
 
         if not name:
             messagebox.showwarning("Input Error", "Convention name cannot be empty.")
@@ -226,19 +226,15 @@ def run_gui():
         if not separator:
             messagebox.showwarning("Input Error", "Separator entry cannot be empty.")
             return
-        
-        if not ID_txt:
-            messagebox.showwarning("Input Error", "ID entry cannot be empty.")
-            return
 
         try:
             convention_list = convention.split(',')
-            ID_list = ID_txt.split(',')
+
             with open(data_path, 'r') as f:
                 data = yaml.safe_load(f)
             if 'convention' not in data:
                 data['convention'] = {}
-            data['convention'][name] = {'convention': convention_list, 'separator': separator, 'ID': ID_list}
+            data['convention'][name] = {'convention': convention_list, 'separator': separator}
 
             # Save the updated data back to the YAML file
             with open(data_path, 'w') as f:
@@ -272,11 +268,8 @@ def run_gui():
         separator_entry = tk.Entry(convention_window, width=3)
         separator_entry.grid(row=1, column=3, padx=10, pady=10, sticky='e')
 
-        tk.Label(convention_window, text="ID: ").grid(row=2, column=0, padx=10, pady=10, sticky='w')
-        ID_entry = tk.Entry(convention_window, width=10)
-        ID_entry.grid(row=2, column=1, padx=10, pady=10, sticky='w')
 
-        save_convention_button = tk.Button(convention_window, text="Save", command=lambda: save_convention(convention_name_entry, convention_entry, separator_entry, ID_entry))
+        save_convention_button = tk.Button(convention_window, text="Save", command=lambda: save_convention(convention_name_entry, convention_entry, separator_entry))
         save_convention_button.grid(row=2, column=3, padx=10, pady=10)
 
     def create_project():
@@ -360,7 +353,7 @@ def run_gui():
                     "date created":time.strftime("%A %d %B %Y %H:%M:%S"),
                     
                     "convention": {selected_convention.get():
-                                {'convention': data['convention'][selected_convention.get()]['convention'], 'separator': data['convention'][selected_convention.get()]['separator'], 'ID':data['convention'][selected_convention.get()]['ID']}
+                                {'convention': data['convention'][selected_convention.get()]['convention'], 'separator': data['convention'][selected_convention.get()]['separator']}
                     },
                     "tapas_path": tapas_path_entry.get(),
                     "cellpose_model": cellpose_name_entry.get(),

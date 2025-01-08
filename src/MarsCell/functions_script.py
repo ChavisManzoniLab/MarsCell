@@ -80,14 +80,14 @@ def change_channel(path_to_tapas_scripts, specify_channel):
 
 
 
-def extract(path_to_folder, name_extraction, separator, structure, ID, ROI, threshold = 500):
+def extract(path_to_folder, name_extraction, separator, structure, ROI, threshold = 500):
     """
     Combines the raw data from ImageJ to make a unique CSV per image.
     Then all the unique CSV are merged into the project CSV, with only the cells that are in the ROI.
     Some useful data is also computed: volumic density of cells and distance binning.
     """
 
-    err_ID = 0 #used to print only once that there is an error with creating the ID
+    
     err_ROI = 0
 
     path_name = os.path.join(path_to_folder, name_extraction)
@@ -274,18 +274,6 @@ def extract(path_to_folder, name_extraction, separator, structure, ID, ROI, thre
 
         #binning the distance
         datafff['bins'] = pd.cut(datafff['distUnit'], bins)
-    
-    try:
-        mouse_ID=""
-        for el in ID:
-            mouse_ID+=datafff[el]
-        datafff['ID'] = mouse_ID
-    except KeyError: 
-        if err_ID==0:
-            print("Error on creating mouse ID")
-            err_ID=1
-        else:pass   
-   
 
     timestr = time.strftime("%Y_%m_%d-%H_%M_%S")
     
