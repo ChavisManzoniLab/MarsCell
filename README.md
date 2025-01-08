@@ -13,7 +13,7 @@ It is based on TAPAS, an ImageJ plugin, completed with Cellpose, an automatic ce
 First, make sure that the following softwares are installed:
 - **Fiji**: [https://imagej.net/software/fiji/](https://imagej.net/software/fiji/)
 - **TAPAS**: [https://imagej.net/plugins/tapas](https://imagej.net/plugins/tapas)
-- **Python 3.9** [https://www.python.org/downloads/release/python-3913/](https://www.python.org/downloads/release/python-3913/)
+- **Python 3.9**: [https://www.python.org/downloads/release/python-3913/](https://www.python.org/downloads/release/python-3913/)
 
 Create a virtual environment   
 
