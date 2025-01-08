@@ -22,7 +22,7 @@ python -m venv MarsCell_env
 ```
 Activate the virtual environment
 ```bash
-MarsCell\Scripts\activate
+MarsCell_env\Scripts\activate
 ```
 
 ##### Using conda:
