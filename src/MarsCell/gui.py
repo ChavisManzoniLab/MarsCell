@@ -466,7 +466,7 @@ def run_gui():
 
     # Create main window
     root = tk.Tk()
-    root.title("MarCell")
+    root.title("MarsCell")
     root_width = 400
     root_height = 200 
 
@@ -482,7 +482,7 @@ def run_gui():
     root.geometry(f"{root_width}x{root_height}+{x}+{y}")
 
     # Create a label for the welcome message
-    welcome_label = tk.Label(root, text="Welcome to MarCell", font=("ComicSansMS", 24))
+    welcome_label = tk.Label(root, text="Welcome to MarsCell", font=("ComicSansMS", 24))
     welcome_label.pack(pady=20)
     button_frame = tk.Frame(root)
     button_frame.pack(pady=10)  # Add some padding above the frame
@@ -500,7 +500,7 @@ def run_gui():
 
     create_button.pack(side=tk.LEFT, padx=20)  # Add some padding to the sides
     open_button.pack(side=tk.RIGHT, padx=20)
-    copyright_label = tk.Label(root, text="☕ 2024 MarCell", font=("Arial", 10))
+    copyright_label = tk.Label(root, text="☕ 2024 MarsCell", font=("Arial", 10))
     copyright_label.pack(side=tk.BOTTOM, pady=5)
 
     root.mainloop()
