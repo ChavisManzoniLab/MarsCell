@@ -13,9 +13,10 @@ It is based on TAPAS, an ImageJ plugin, completed with Cellpose, an automatic ce
 First, make sure that the following softwares are installed:
 - **Fiji**: [https://imagej.net/software/fiji/](https://imagej.net/software/fiji/)
 - **TAPAS**: [https://imagej.net/plugins/tapas](https://imagej.net/plugins/tapas)
-- **Python 3.9**
+- **Python 3.9**: [https://www.python.org/downloads/release/python-3913/](https://www.python.org/downloads/release/python-3913/)
 
-Create a virtual environment 
+Create a virtual environment   
+
 Using venv:
 
 ```bash
@@ -26,11 +27,10 @@ Using conda:
 ```bash
 conda create -n ENV_NAME python=3.9 anaconda
 ```
-Then run:
+Install the packages:
 ```bash
 pip install git+https://github.com/ChavisManzoniLab/MarsCell.git
 ```
-This will install all the required packages to run the notebook.
 
 If error :
 ```bash
@@ -42,11 +42,6 @@ pip install setuptools
 pip install git+https://github.com/ChavisManzoniLab/MarsCell.git
 ```
 
-If error :
-```bash
-CondaSSLError
-```
-run
 The notebook will be used to help with the initialisation of the workflow and to format data. 
 
 In the `TAPAS_scripts` folder, each text document is used to run a specific process in Fiji. 
