@@ -20,12 +20,12 @@ First, make sure that the following softwares are installed:
 ```bash
 python -m venv ENV_NAME
 ```
-Using conda:
+##### Using conda:
 
 ```bash
 conda create -n ENV_NAME python=3.9 anaconda
 ```
-Install the packages:
+### 1.2 Install the packages:
 ```bash
 pip install git+https://github.com/ChavisManzoniLab/MarsCell.git
 ```
@@ -49,19 +49,19 @@ The `run_cellpose.bat` file is used to launch Cellpose with the provided model. 
 First, put the path to your Python environment that you just created. 
 The second path is to the Cellpose model you are going to use. You can use the model available in the github directory, or create a model that suits better your analysis workflow.
 
-### 2. Initialization
+## 2. Initialization
 
-#### 2.1 Upload
+### 2.1 Upload
 
 Upload your image stacks on OMERO, using OMERO.insight. The image processing handles one dataset at a time, so ensure that all the image stacks for a given project are included in the same dataset.
 
 To obtain layer organization data (the distance of cells to a segment), you can draw a segment using the OMERO ROI interface. Please note that currently, the workflow only supports straight lines.
 
-#### 2.2 Imports
+### 2.2 Imports
 
 Open the notebook using the Jupyter app on Anaconda or with a code editor like Visual Studio Code. In the Import section of the notebook, run the cell to import all the functions that we will need.
 
-#### 2.3 Naming Convention
+### 2.3 Naming Convention
 
 Specify the structure of the title of your images. Ensure that all your images follow the same naming convention to access information such as sex, age, condition. Indicate the separator used in your title to delimit the categories. Then, in the `structure` list, provide each category name in the order that they appear in the title.
 
@@ -73,11 +73,11 @@ separator = '_'
 structure = ['Exp_Date', 'Batch', 'Ori', 'Condition', 'Age', 'Sex', 'Strain', 'Marker', 'Slide_Id', 'Atlas', 'Slide_side']
 ```
 
-## 2.4 Setting the Paths
+### 2.4 Setting the Paths
 
 Enter the path where your project will be saved, then enter the name of the project. Run the initialization function that will create the directory for the project. Enter the path where your TAPAS scripts are stored and the name of your batch file that runs Cellpose. Run the cell to change the paths in the TAPAS files.
 
-## 3. Image Processing with TAPAS and Cellpose
+### 3. Image Processing with TAPAS and Cellpose
 
 Open Fiji, and connect to OMERO through TAPAS in `Plugins > TAPAS > TAPAS CONNECT`. Then, launch the OMERO interface in `Plugins > TAPAS > TAPAS OMERO`. You should now be able to select a project and a dataset.
 
