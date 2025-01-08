@@ -15,7 +15,7 @@ First, make sure that the following softwares are installed:
 - **TAPAS**: [https://imagej.net/plugins/tapas](https://imagej.net/plugins/tapas)
 - **Python 3.9**: [https://www.python.org/downloads/release/python-3913/](https://www.python.org/downloads/release/python-3913/)
 
-Create a virtual environment   
+##### Create a virtual environment   
 
 Using venv:
 
