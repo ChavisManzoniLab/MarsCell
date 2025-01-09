@@ -373,7 +373,7 @@ def run_gui():
                 for file in os.listdir(data['tapas_path']):
                     copy2(os.path.join(data['tapas_path'], file), project_tapas_path)
 
-                initialise_project(project_tapas_path, image_channel_entry.get(), scale_x_entry.get(), scale_y_entry.get(),z_cropmin_entry.get(),z_cropmax_entry.get(), project_path, project_name+'extraction', cellpose_name_entry.get(), os.path.join(data_path, 'Models'))
+                initialise_project(project_tapas_path, image_channel_entry.get(), scale_x_entry.get(), scale_y_entry.get(),z_cropmin_entry.get(),z_cropmax_entry.get(), project_path, project_name+'extraction', cellpose_name_entry.get(), os.path.normpath(data_path, '/../Models'))
                 messagebox.showinfo("Success", f"Project '{project_name}' created at: {project_path}")
             except Exception as e:
                 messagebox.showerror("Error", f"Could not create project because of the following exception: {e}")
