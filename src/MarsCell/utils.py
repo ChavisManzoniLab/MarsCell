@@ -106,4 +106,3 @@ def initialisation():
         data_path=created['file_path']
 
 
-initialisation()

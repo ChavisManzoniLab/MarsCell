@@ -47,7 +47,7 @@ def run_gui():
 
         tapas_file = '02a_tapas-cellpose.txt'
         pattern = "process:exe"
-        text_replacement = 'dir:'+path_to_tapas_scripts+'/../Models' + " \n"
+        text_replacement = 'dir:'+os.path.normpath(path_to_tapas_scripts+'/../Models') + " \n"
         change_path(path_to_tapas_scripts, tapas_file, pattern, text_replacement)
 
         pattern = "//name"
