@@ -11,7 +11,7 @@ from shutil import copy2
 def run_gui():
     ROI_list=['No ROI','Line']
 
-    def initialise_project(path_to_tapas_scripts, specify_channel, scale_x, scale_y,zMin,zMax, path_to_folder, name_extraction, cellpose_name):
+    def initialise_project(path_to_tapas_scripts, specify_channel, scale_x, scale_y,zMin,zMax, path_to_folder, name_extraction, cellpose_name, path_model):
         try:
             initialisation(path_to_folder, name_extraction)
         except FileExistsError as fe:
@@ -47,7 +47,7 @@ def run_gui():
 
         tapas_file = '02a_tapas-cellpose.txt'
         pattern = "process:exe"
-        text_replacement = 'dir:'+os.path.normpath(path_to_tapas_scripts+'/../Models') + " \n"
+        text_replacement = 'dir:'+path_model + " \n"
         change_path(path_to_tapas_scripts, tapas_file, pattern, text_replacement)
 
         pattern = "//name"
@@ -373,7 +373,7 @@ def run_gui():
                 for file in os.listdir(data['tapas_path']):
                     copy2(os.path.join(data['tapas_path'], file), project_tapas_path)
 
-                initialise_project(project_tapas_path, image_channel_entry.get(), scale_x_entry.get(), scale_y_entry.get(),z_cropmin_entry.get(),z_cropmax_entry.get(), project_path, project_name+'extraction', cellpose_name_entry.get())
+                initialise_project(project_tapas_path, image_channel_entry.get(), scale_x_entry.get(), scale_y_entry.get(),z_cropmin_entry.get(),z_cropmax_entry.get(), project_path, project_name+'extraction', cellpose_name_entry.get(), os.path.join(data_path, 'Models'))
                 messagebox.showinfo("Success", f"Project '{project_name}' created at: {project_path}")
             except Exception as e:
                 messagebox.showerror("Error", f"Could not create project because of the following exception: {e}")
