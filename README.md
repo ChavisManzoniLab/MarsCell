@@ -1,5 +1,23 @@
 # Methodology
-
+📂 Project
+├── 📂 src
+│   ├── 📄 main.py
+│   ├── 📄 utils.py
+│   └── 📂 components
+│       ├── 📄 component1.py
+│       └── 📄 component2.py
+├── 📂 tests
+│   ├── 📄 test_main.py
+│   └── 📄 test_utils.py
+├── 📄 README.md
+├── 📄 requirements.txt
+└── 📂 data
+    ├── 📂 raw
+    │   ├── 📄 data1.csv
+    │   └── 📄 data2.csv
+    └── 📂 processed
+        ├── 📄 clean_data1.csv
+        └── 📄 clean_data2.csv
 ## Description (to change)
 MarsCell is an AI-based workflow for automated cell detection and quantification on confocal images.
 It is based on TAPAS, an ImageJ plugin, completed with Cellpose, an automatic cell-segmentation tool, and a Jupyter Notebook to ensure accessibility to everyone.
