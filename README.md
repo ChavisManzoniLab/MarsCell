@@ -1,8 +1,8 @@
 # Methodology
-📂 Project
-├── 📂 src
-│   ├── 📄 main.py
-│   ├── 📄 utils.py
+📂 Project  
+├── 📂 src  
+│   ├── 📄 main.py  
+│   ├── 📄 utils.py  
 │   └── 📂 components
 │       ├── 📄 component1.py
 │       └── 📄 component2.py
