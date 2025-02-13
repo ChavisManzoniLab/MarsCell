@@ -1,19 +1,11 @@
 import pandas as pd
-import math as m
-import numpy as np
-import os
-import seaborn as sns
-import matplotlib.pyplot as plt
-import plotly.graph_objects as go
-from scipy.stats import gaussian_kde
-from plotly.subplots import make_subplots
 import time
-
+import os
 
 def initialisation(path_to_folder, name_extraction):
     '''
     Creates the directory of the project with the path specified and the name of the project.
-    The ImageJ raw data from extraction will be saved in 5 folders : calibration, coordinates, distance, volume and intensity.
+    The ImageJ raw data from extraction will be saved in 4 folders : calibration, coordinates, volume and intensity (and distance from a line if chosen).
     '''
     path_name = os.path.join(path_to_folder,name_extraction)
 
@@ -29,8 +21,8 @@ def initialisation(path_to_folder, name_extraction):
 
 def change_path(path_to_tapas_scripts, tapas_file, pattern, text_replacement):
     """
-    This function automatically changes the path used by the TAPAS script.
-    The function detects the line that start with the specified pattern, and then change the line below with the right path.
+    Changes a path in a TAPAS script.
+    The function detects a line that start with the specified pattern, and then change the line below with the right path.
     """
     with open(os.path.join(path_to_tapas_scripts, tapas_file), "r") as file:
         lines = file.readlines()
@@ -44,6 +36,75 @@ def change_path(path_to_tapas_scripts, tapas_file, pattern, text_replacement):
     # Write the modified lines back to the file
     with open(os.path.join(path_to_tapas_scripts, tapas_file), "w") as file:
         file.writelines(lines)
+
+
+def initialise_project(path_to_tapas_scripts, specify_channel, scale_x, scale_y,zMin,zMax, path_to_folder, name_extraction, cellpose_name, path_model):
+        try:
+            initialisation(path_to_folder, name_extraction)
+        except FileExistsError as fe:
+            print("The folder \"%s\" already exists"%name_extraction)
+        except Exception: pass
+
+        change_channel(path_to_tapas_scripts, specify_channel)
+        tapas_file = '01_tapas-preprocess.txt'
+        pattern = 'process:scale'
+        text_replacement = 'scalex:'+str(scale_x)+'\n'
+        change_path(path_to_tapas_scripts, tapas_file, pattern, text_replacement)
+
+        tapas_file = '01_tapas-preprocess.txt'
+        pattern = 'scalex:'+str(scale_x)
+        text_replacement = 'scaley:'+str(scale_y)+'\n'
+        change_path(path_to_tapas_scripts, tapas_file, pattern, text_replacement)
+    
+        tapas_file = '01_tapas-preprocess.txt'
+        pattern = 'process:cropZ'
+        text_replacement = 'zMin:'+str(zMin)+'\n'
+        change_path(path_to_tapas_scripts, tapas_file, pattern, text_replacement)
+
+        tapas_file = '01_tapas-preprocess.txt'
+        pattern = 'zMin:'
+        text_replacement = 'zMax:'+str(zMax)+'\n'
+        change_path(path_to_tapas_scripts, tapas_file, pattern, text_replacement)
+
+
+        tapas_file = '02a_tapas-cellpose.txt'
+        pattern = "process:calibration"
+        text_replacement = 'dir:'+path_to_folder+"\\"+name_extraction+"\calibration\ \n"
+        change_path(path_to_tapas_scripts, tapas_file, pattern, text_replacement)
+
+        tapas_file = '02a_tapas-cellpose.txt'
+        pattern = "process:exe"
+        text_replacement = 'dir:'+path_model + " \n"
+        change_path(path_to_tapas_scripts, tapas_file, pattern, text_replacement)
+
+        pattern = "//name"
+        text_replacement = 'file:'+cellpose_name + " \n"
+        change_path(path_to_tapas_scripts, tapas_file, pattern, text_replacement)
+
+        tapas_file = 'all_measures_local.txt'
+        pattern = "process:distanceLine"
+        text_replacement = 'dir:'+path_to_folder+"\\"+name_extraction+"\\distance\ \n"
+        change_path(path_to_tapas_scripts, tapas_file, pattern, text_replacement)
+
+        tapas_file = 'all_measures_local.txt'
+        pattern = "//coord"
+        text_replacement = 'dir:'+path_to_folder+"\\"+name_extraction+"\\coordinates\ \n"
+        change_path(path_to_tapas_scripts, tapas_file, pattern, text_replacement)
+
+        tapas_file = 'all_measures_local.txt'
+        pattern = "//volume"
+        text_replacement = 'dir:'+path_to_folder+"\\"+name_extraction+"\\volume\ \n"
+        change_path(path_to_tapas_scripts, tapas_file, pattern, text_replacement)
+
+        tapas_file = 'all_measures_local.txt'
+        pattern = "\\intensity"
+        text_replacement = 'dir:'+path_to_folder+"\\"+name_extraction+"\\intensity\ \n"
+        change_path(path_to_tapas_scripts, tapas_file, pattern, text_replacement)
+
+        tapas_file = 'all_measures_local.txt'
+        pattern = "process:calibrationSave"
+        text_replacement = 'dir:'+path_to_folder+"\\"+name_extraction+"\\calibration\ \n"
+        change_path(path_to_tapas_scripts, tapas_file, pattern, text_replacement)
 
 def change_channel(path_to_tapas_scripts, specify_channel):
     '''

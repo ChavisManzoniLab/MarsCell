@@ -1,17 +1,15 @@
 import pandas as pd
 import math as m
 import numpy as np
-from os import listdir, mkdir
 import seaborn as sns
 import matplotlib.pyplot as plt
 import plotly.graph_objects as go
 from scipy.stats import gaussian_kde
-import time
-from PIL import Image
+
 from statannot import add_stat_annotation
 import matplotlib
-import scipy.stats as sps
-import random as rn
+
+pix_to_micron = 0.1559814453125*2 #conversion factor
 
 colors = ['#000000','#FC8608','#0379F7']
 customPalette = sns.set_palette(sns.color_palette(colors))

@@ -1,83 +1,16 @@
-import tkinter as tk
-from tkinter import ttk
-from tkinter import filedialog
-from tkinter import messagebox
 import os
-import yaml
 import time
-from MarsCell.functions_script import *
+import yaml
+import tkinter as tk
 from shutil import copy2
+from MarsCell.functions_script import *
+from tkinter import ttk, filedialog, messagebox
+
 
 def run_gui():
     ROI_list=['No ROI','Line']
 
-    def initialise_project(path_to_tapas_scripts, specify_channel, scale_x, scale_y,zMin,zMax, path_to_folder, name_extraction, cellpose_name, path_model):
-        try:
-            initialisation(path_to_folder, name_extraction)
-        except FileExistsError as fe:
-            print("The folder \"%s\" already exists"%name_extraction)
-        except Exception: pass
-
-        change_channel(path_to_tapas_scripts, specify_channel)
-        tapas_file = '01_tapas-preprocess.txt'
-        pattern = 'process:scale'
-        text_replacement = 'scalex:'+str(scale_x)+'\n'
-        change_path(path_to_tapas_scripts, tapas_file, pattern, text_replacement)
-
-        tapas_file = '01_tapas-preprocess.txt'
-        pattern = 'scalex:'+str(scale_x)
-        text_replacement = 'scaley:'+str(scale_y)+'\n'
-        change_path(path_to_tapas_scripts, tapas_file, pattern, text_replacement)
     
-        tapas_file = '01_tapas-preprocess.txt'
-        pattern = 'process:cropZ'
-        text_replacement = 'zMin:'+str(zMin)+'\n'
-        change_path(path_to_tapas_scripts, tapas_file, pattern, text_replacement)
-
-        tapas_file = '01_tapas-preprocess.txt'
-        pattern = 'zMin:'
-        text_replacement = 'zMax:'+str(zMax)+'\n'
-        change_path(path_to_tapas_scripts, tapas_file, pattern, text_replacement)
-
-
-        tapas_file = '02a_tapas-cellpose.txt'
-        pattern = "process:calibration"
-        text_replacement = 'dir:'+path_to_folder+"\\"+name_extraction+"\calibration\ \n"
-        change_path(path_to_tapas_scripts, tapas_file, pattern, text_replacement)
-
-        tapas_file = '02a_tapas-cellpose.txt'
-        pattern = "process:exe"
-        text_replacement = 'dir:'+path_model + " \n"
-        change_path(path_to_tapas_scripts, tapas_file, pattern, text_replacement)
-
-        pattern = "//name"
-        text_replacement = 'file:'+cellpose_name + " \n"
-        change_path(path_to_tapas_scripts, tapas_file, pattern, text_replacement)
-
-        tapas_file = 'all_measures_local.txt'
-        pattern = "process:distanceLine"
-        text_replacement = 'dir:'+path_to_folder+"\\"+name_extraction+"\\distance\ \n"
-        change_path(path_to_tapas_scripts, tapas_file, pattern, text_replacement)
-
-        tapas_file = 'all_measures_local.txt'
-        pattern = "//coord"
-        text_replacement = 'dir:'+path_to_folder+"\\"+name_extraction+"\\coordinates\ \n"
-        change_path(path_to_tapas_scripts, tapas_file, pattern, text_replacement)
-
-        tapas_file = 'all_measures_local.txt'
-        pattern = "//volume"
-        text_replacement = 'dir:'+path_to_folder+"\\"+name_extraction+"\\volume\ \n"
-        change_path(path_to_tapas_scripts, tapas_file, pattern, text_replacement)
-
-        tapas_file = 'all_measures_local.txt'
-        pattern = "\\intensity"
-        text_replacement = 'dir:'+path_to_folder+"\\"+name_extraction+"\\intensity\ \n"
-        change_path(path_to_tapas_scripts, tapas_file, pattern, text_replacement)
-
-        tapas_file = 'all_measures_local.txt'
-        pattern = "process:calibrationSave"
-        text_replacement = 'dir:'+path_to_folder+"\\"+name_extraction+"\\calibration\ \n"
-        change_path(path_to_tapas_scripts, tapas_file, pattern, text_replacement)
     
     def open_project():
         file_path = filedialog.askopenfilename(title='Open a file',
@@ -375,7 +308,7 @@ def run_gui():
 
                 initialise_project(project_tapas_path, image_channel_entry.get(), scale_x_entry.get(), scale_y_entry.get(),z_cropmin_entry.get(),z_cropmax_entry.get(), project_path, project_name+'extraction', cellpose_name_entry.get(), os.path.normpath(data_path+ '/../Models'))
                 messagebox.showinfo("Success", f"Project '{project_name}' created at: {project_path}")
-            except Exception as e:
+            except Exception as e: 
                 messagebox.showerror("Error", f"Could not create project because of the following exception: {e}")
 
             #create_window.destroy()
