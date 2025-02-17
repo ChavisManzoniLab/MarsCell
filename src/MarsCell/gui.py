@@ -113,35 +113,35 @@ def run_gui():
         
 
         frame = tk.Frame(master=project_window, relief=tk.RAISED, borderwidth=1)
-        frame.grid(row=8, rowspan=4, columnspan=3)
-        tk.Label(frame, text='Preprocessing').grid(row=8, column=1, padx=10, pady=10, sticky='w')
+        frame.grid(row=9, rowspan=4, columnspan=3)
+        tk.Label(frame, text='Preprocessing').grid(row=9, column=1, padx=10, pady=10, sticky='w')
         tk.Label(frame, text='Channel to process: ').grid(row=9, column=0, padx=10, pady=10, sticky='w')
         image_channel_entry = tk.Entry(frame, width=10)
-        image_channel_entry.grid(row=9, column=1, padx=10, pady=10, sticky='e')
+        image_channel_entry.grid(row=10, column=1, padx=10, pady=10, sticky='e')
         image_channel_entry.insert(0, project_data['image_channel'])
 
-        tk.Label(frame, text='Z crop: ').grid(row=10, column=0, padx=10, pady=10, sticky='w')
+        tk.Label(frame, text='Z crop: ').grid(row=11, column=0, padx=10, pady=10, sticky='w')
         z_cropmin_entry = tk.Entry(frame, width=10)
-        z_cropmin_entry.grid(row=10, column=1, padx=10, pady=10, sticky='e')
+        z_cropmin_entry.grid(row=11, column=1, padx=10, pady=10, sticky='e')
         z_cropmin_entry.insert(0, project_data['z_cropmin'])
         z_cropmax_entry = tk.Entry(frame, width=10)
-        z_cropmax_entry.grid(row=10, column=2, padx=10, pady=10, sticky='e')
+        z_cropmax_entry.grid(row=11, column=2, padx=10, pady=10, sticky='e')
         z_cropmax_entry.insert(0, project_data['z_cropmax'])
 
-        tk.Label(frame, text='Scale XY ').grid(row=11, column=0, padx=10, pady=10, sticky='w')
+        tk.Label(frame, text='Scale XY ').grid(row=12, column=0, padx=10, pady=10, sticky='w')
         scale_x_entry = tk.Entry(frame, width=10)
-        scale_x_entry.grid(row=11, column=1, padx=10, pady=10, sticky='e')
+        scale_x_entry.grid(row=12, column=1, padx=10, pady=10, sticky='e')
         scale_x_entry.insert(0, project_data['scale_x'])
         scale_y_entry = tk.Entry(frame, width=10)
-        scale_y_entry.grid(row=11, column=2, padx=10, pady=10, sticky='e')
+        scale_y_entry.grid(row=12, column=2, padx=10, pady=10, sticky='e')
         scale_y_entry.insert(0, project_data['scale_y'])
 
         save_button = tk.Button(project_window, text="Save Project", command=save_project)
-        save_button.grid(row=12, column=1, pady=10)
+        save_button.grid(row=13, column=1, pady=10)
         
         data = load_project_data(filename=data_path)
         extract_button = tk.Button(project_window, text="Extract data", command=lambda:extract_project(path_to_folder, project_name+'extraction', data['convention'][selected_convention.get()]['separator'], data['convention'][selected_convention.get()]['convention'], ROI=None))
-        extract_button.grid(row=11, column=2, pady=10)
+        extract_button.grid(row=12, column=2, pady=10)
         # Initial load of options
         refresh_options()
 
