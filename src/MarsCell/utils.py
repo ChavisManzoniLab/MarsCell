@@ -88,7 +88,7 @@ def initialisation():
         welcome_label.pack(pady=20)
         button_frame = tk.Frame(window)
         button_frame.pack(pady=10)  # Add some padding above the frame
-        path_button = tk.Button(button_frame, text="Create Project", command=filepath_btn)
+        path_button = tk.Button(button_frame, text="Initialize", command=filepath_btn)
         path_button.pack()
         window.mainloop()
 
