@@ -326,7 +326,7 @@ def run_gui():
 
         tk.Label(create_window, text="Name of the created dataset: ").grid(row=8, column=0, padx=10, pady=10, sticky='w')
         dataset_name_entry = tk.Entry(create_window, width=50)
-        dataset_name_entry.grid(row=7, column=1, padx=10, pady=10)
+        dataset_name_entry.grid(row=8, column=1, padx=10, pady=10)
 
 
         frame = tk.Frame(master=create_window, relief=tk.RAISED, borderwidth=1)
@@ -430,7 +430,7 @@ def run_gui():
 
 
     # Prevent the frame from resizing itself to fit the widgets
-    create_button = ttk.Button(button_frame, text="Initialize", command=create_project)
+    create_button = ttk.Button(button_frame, text="Create project", command=create_project)
 
 
     open_button = ttk.Button(button_frame, text="Open Project", command=open_project)
