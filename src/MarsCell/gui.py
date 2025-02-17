@@ -84,6 +84,7 @@ def run_gui():
                 data = load_project_data(filename=file_path)
                 project_data["tapas_path"]=tapas_path_entry.get()
                 project_data["cellpose_model"]=cellpose_name_entry.get()
+                project_data["dataset_name"]=dataset_name_entry.get()
                 project_data["image_channel"]=image_channel_entry.get()
                 project_data["z_cropmin"]=z_cropmin_entry.get()
                 project_data["z_cropmax"]=z_cropmax_entry.get()
@@ -105,6 +106,11 @@ def run_gui():
         cellpose_name_entry = tk.Entry(project_window, width=50)
         cellpose_name_entry.grid(row=7, column=1, padx=10, pady=10)
         cellpose_name_entry.insert(0, project_data['cellpose_model'])
+
+        tk.Label(project_window, text="Dataset").grid(row=8, column=0, padx=10, pady=10, sticky='w')
+        dataset_name_entry = tk.Entry(project_window, width=50)
+        dataset_name_entry.grid(row=7, column=1, padx=10, pady=10)
+        
 
         frame = tk.Frame(master=project_window, relief=tk.RAISED, borderwidth=1)
         frame.grid(row=8, rowspan=4, columnspan=3)
@@ -290,6 +296,7 @@ def run_gui():
                     },
                     "tapas_path": tapas_path_entry.get(),
                     "cellpose_model": cellpose_name_entry.get(),
+                    "dataset_name": dataset_name_entry.get(),
                     "image_channel": image_channel_entry.get(),
                     "z_cropmin": z_cropmin_entry.get(),
                     "z_cropmax": z_cropmax_entry.get(),
@@ -306,7 +313,7 @@ def run_gui():
                 for file in os.listdir(data['tapas_path']):
                     copy2(os.path.join(data['tapas_path'], file), project_tapas_path)
 
-                initialise_project(project_tapas_path, image_channel_entry.get(), scale_x_entry.get(), scale_y_entry.get(),z_cropmin_entry.get(),z_cropmax_entry.get(), project_path, project_name+'extraction', cellpose_name_entry.get(), os.path.normpath(data_path+ '/../Models'))
+                initialise_project(project_tapas_path, image_channel_entry.get(), scale_x_entry.get(), scale_y_entry.get(),z_cropmin_entry.get(),z_cropmax_entry.get(), project_path, project_name+'extraction', cellpose_name_entry.get(), os.path.normpath(data_path+ '/../Models'), dataset_name_entry.get())
                 messagebox.showinfo("Success", f"Project '{project_name}' created at: {project_path}")
             except Exception as e: 
                 messagebox.showerror("Error", f"Could not create project because of the following exception: {e}")
@@ -317,32 +324,37 @@ def run_gui():
         cellpose_name_entry.grid(row=7, column=1, padx=10, pady=10)
         cellpose_name_entry.insert(0, cellpose_model)
 
+        tk.Label(create_window, text="Name of the created dataset: ").grid(row=8, column=0, padx=10, pady=10, sticky='w')
+        dataset_name_entry = tk.Entry(create_window, width=50)
+        dataset_name_entry.grid(row=7, column=1, padx=10, pady=10)
+
+
         frame = tk.Frame(master=create_window, relief=tk.RAISED, borderwidth=1)
-        frame.grid(row=8, rowspan=4, columnspan=3)
-        tk.Label(frame, text='Preprocessing').grid(row=8, column=1, padx=10, pady=10, sticky='w')
-        tk.Label(frame, text='Channel to process: ').grid(row=9, column=0, padx=10, pady=10, sticky='w')
+        frame.grid(row=9, rowspan=4, columnspan=3)
+        tk.Label(frame, text='Preprocessing').grid(row=9, column=1, padx=10, pady=10, sticky='w')
+        tk.Label(frame, text='Channel to process: ').grid(row=10, column=0, padx=10, pady=10, sticky='w')
         image_channel_entry = tk.Entry(frame, width=10)
-        image_channel_entry.grid(row=9, column=1, padx=10, pady=10, sticky='e')
+        image_channel_entry.grid(row=10, column=1, padx=10, pady=10, sticky='e')
         image_channel_entry.insert(0, 1)
 
-        tk.Label(frame, text='Z crop: ').grid(row=10, column=0, padx=10, pady=10, sticky='w')
+        tk.Label(frame, text='Z crop: ').grid(row=11, column=0, padx=10, pady=10, sticky='w')
         z_cropmin_entry = tk.Entry(frame, width=10)
-        z_cropmin_entry.grid(row=10, column=1, padx=10, pady=10, sticky='e')
+        z_cropmin_entry.grid(row=11, column=1, padx=10, pady=10, sticky='e')
         z_cropmin_entry.insert(0, 0)
         z_cropmax_entry = tk.Entry(frame, width=10)
-        z_cropmax_entry.grid(row=10, column=2, padx=10, pady=10, sticky='e')
+        z_cropmax_entry.grid(row=11, column=2, padx=10, pady=10, sticky='e')
         z_cropmax_entry.insert(0, 18)
 
-        tk.Label(frame, text='Scale XY ').grid(row=11, column=0, padx=10, pady=10, sticky='w')
+        tk.Label(frame, text='Scale XY ').grid(row=12, column=0, padx=10, pady=10, sticky='w')
         scale_x_entry = tk.Entry(frame, width=10)
-        scale_x_entry.grid(row=11, column=1, padx=10, pady=10, sticky='e')
+        scale_x_entry.grid(row=12, column=1, padx=10, pady=10, sticky='e')
         scale_x_entry.insert(0, 1)
         scale_y_entry = tk.Entry(frame, width=10)
-        scale_y_entry.grid(row=11, column=2, padx=10, pady=10, sticky='e')
+        scale_y_entry.grid(row=12, column=2, padx=10, pady=10, sticky='e')
         scale_y_entry.insert(0, 1)
 
         save_button = tk.Button(create_window, text="Create Project", command=save_project)
-        save_button.grid(row=12, columnspan=3, pady=10)
+        save_button.grid(row=13, columnspan=3, pady=10)
 
         # Initial load of options
         refresh_options()
@@ -418,7 +430,7 @@ def run_gui():
 
 
     # Prevent the frame from resizing itself to fit the widgets
-    create_button = ttk.Button(button_frame, text="Create Project", command=create_project)
+    create_button = ttk.Button(button_frame, text="Initialize", command=create_project)
 
 
     open_button = ttk.Button(button_frame, text="Open Project", command=open_project)

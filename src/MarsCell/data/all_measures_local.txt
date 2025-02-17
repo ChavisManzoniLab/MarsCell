@@ -1,49 +1,79 @@
 // Input image reelin seg
 process:input
-dataset:?dataset?
+dataset:?dataset?-analysis
 image:?image?-seg.tif
 
 // Distance to line
 process:distanceLine
-dir:C:/Users/Thenzing/Julien/TAPAS-Thomas\groundtruth3D\groundtruth3Dextraction\distance\ 
+//distline
+dir:C:/Users/Thenzing/Julien/TAPAS-Thomas\ 
 file:?image?-distanceLine.csv
 scalexy : 0.5
+
+process:attach
+//distline
+dir:C:/Users/Thenzing/Julien/TAPAS-Thomas\ 
+file:?image?-distanceLine.csv
+
 
 // Measurements
 process:measureGeom
 //coord
-dir:C:/Users/Thenzing/Julien/TAPAS-Thomas\groundtruth3D\groundtruth3Dextraction\coordinates\ 
+dir:C:/Users/Thenzing/Julien/TAPAS-Thomas\ 
 file:?image?-centroid.csv
 list:centroid
 
+process:attach
+//coord
+dir:C:/Users/Thenzing/Julien/TAPAS-Thomas\ 
+file:?image?-centroid.csv
+
 // link raw image reelin pre
 process:link
-dataset:?dataset?
+dataset:?dataset?-analysis
 image:?image?-pre
 linkName:raw
 
 // Measurements
 process:measureGeom
 //volume
-dir:C:/Users/Thenzing/Julien/TAPAS-Thomas\groundtruth3D\groundtruth3Dextraction\volume\ 
+dir:C:/Users/Thenzing/Julien/TAPAS-Thomas\ 
 file:?image?-volume.csv
 list:all
+
+process:attach
+//volume
+dir:C:/Users/Thenzing/Julien/TAPAS-Thomas\
+file:?image?-volume.csv
+
 
 // Signal quantification
 process:measureIntensity
 fileRaw:LINK_raw
 list:all
 //intensity
-dir:C:/Users/Thenzing/Julien/TAPAS-Thomas\groundtruth3D\groundtruth3Dextraction\intensity\ 
+dir:C:/Users/Thenzing/Julien/TAPAS-Thomas\ 
+file:?image?-quantif.csv
+
+// Attach list of files
+process:attach
+//intensity
+dir:C:/Users/Thenzing/Julien/TAPAS-Thomas\ 
 file:?image?-quantif.csv
 
 // Input image reelin pre
 process:input
+//second input
 dataset:?dataset?-analysis
 image:?image?-pre 
 
 process:calibrationSave
-dir:C:/Users/Thenzing/Julien/TAPAS-Thomas\groundtruth3D\groundtruth3Dextraction\calibration\ 
+//calibration
+dir:C:/Users/Thenzing/Julien/TAPAS-Thomas\
 file:?image?-calibration.txt
 
+process:attach
+//calibration
+dir:C:/Users/Thenzing/Julien/TAPAS-Thomas\
+file:?image?-calibration.txt
 

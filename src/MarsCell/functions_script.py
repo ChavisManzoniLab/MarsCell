@@ -38,7 +38,7 @@ def change_path(path_to_tapas_scripts, tapas_file, pattern, text_replacement):
         file.writelines(lines)
 
 
-def initialise_project(path_to_tapas_scripts, specify_channel, scale_x, scale_y,zMin,zMax, path_to_folder, name_extraction, cellpose_name, path_model):
+def initialise_project(path_to_tapas_scripts, specify_channel, scale_x, scale_y,zMin,zMax, path_to_folder, name_extraction, cellpose_name, path_model, dataset_name):
         try:
             initialisation(path_to_folder, name_extraction)
         except FileExistsError as fe:
@@ -51,19 +51,24 @@ def initialise_project(path_to_tapas_scripts, specify_channel, scale_x, scale_y,
         text_replacement = 'scalex:'+str(scale_x)+'\n'
         change_path(path_to_tapas_scripts, tapas_file, pattern, text_replacement)
 
-        tapas_file = '01_tapas-preprocess.txt'
         pattern = 'scalex:'+str(scale_x)
         text_replacement = 'scaley:'+str(scale_y)+'\n'
         change_path(path_to_tapas_scripts, tapas_file, pattern, text_replacement)
     
-        tapas_file = '01_tapas-preprocess.txt'
         pattern = 'process:cropZ'
         text_replacement = 'zMin:'+str(zMin)+'\n'
         change_path(path_to_tapas_scripts, tapas_file, pattern, text_replacement)
 
-        tapas_file = '01_tapas-preprocess.txt'
         pattern = 'zMin:'
         text_replacement = 'zMax:'+str(zMax)+'\n'
+        change_path(path_to_tapas_scripts, tapas_file, pattern, text_replacement)
+
+        pattern = 'process:createDataset'
+        text_replacement = 'datasetName:?dataset?-'dataset_name+'\n'
+        change_path(path_to_tapas_scripts, tapas_file, pattern, text_replacement)
+
+        pattern = 'process:output'
+        text_replacement = 'dataset:?dataset?-'dataset_name+'\n'
         change_path(path_to_tapas_scripts, tapas_file, pattern, text_replacement)
 
 
@@ -72,7 +77,7 @@ def initialise_project(path_to_tapas_scripts, specify_channel, scale_x, scale_y,
         text_replacement = 'dir:'+path_to_folder+"\\"+name_extraction+"\calibration\ \n"
         change_path(path_to_tapas_scripts, tapas_file, pattern, text_replacement)
 
-        tapas_file = '02a_tapas-cellpose.txt'
+
         pattern = "process:exe"
         text_replacement = 'dir:'+path_model + " \n"
         change_path(path_to_tapas_scripts, tapas_file, pattern, text_replacement)
@@ -81,30 +86,52 @@ def initialise_project(path_to_tapas_scripts, specify_channel, scale_x, scale_y,
         text_replacement = 'file:'+cellpose_name + " \n"
         change_path(path_to_tapas_scripts, tapas_file, pattern, text_replacement)
 
-        tapas_file = 'all_measures_local.txt'
-        pattern = "process:distanceLine"
-        text_replacement = 'dir:'+path_to_folder+"\\"+name_extraction+"\\distance\ \n"
+        pattern = 'process:input'
+        text_replacement = 'dataset:?dataset?-'dataset_name+'\n'
+        change_path(path_to_tapas_scripts, tapas_file, pattern, text_replacement)
+
+        pattern = 'process:output'
+        text_replacement = 'dataset:?dataset?-'dataset_name+'\n'
         change_path(path_to_tapas_scripts, tapas_file, pattern, text_replacement)
 
         tapas_file = 'all_measures_local.txt'
+        pattern = "//distline"
+        text_replacement = 'dir:'+path_to_folder+"\\"+name_extraction+"\\distance\ \n"
+        change_path(path_to_tapas_scripts, tapas_file, pattern, text_replacement)
+
+
         pattern = "//coord"
         text_replacement = 'dir:'+path_to_folder+"\\"+name_extraction+"\\coordinates\ \n"
         change_path(path_to_tapas_scripts, tapas_file, pattern, text_replacement)
 
-        tapas_file = 'all_measures_local.txt'
+
         pattern = "//volume"
         text_replacement = 'dir:'+path_to_folder+"\\"+name_extraction+"\\volume\ \n"
         change_path(path_to_tapas_scripts, tapas_file, pattern, text_replacement)
 
-        tapas_file = 'all_measures_local.txt'
-        pattern = "\\intensity"
+  
+        pattern = "//intensity"
         text_replacement = 'dir:'+path_to_folder+"\\"+name_extraction+"\\intensity\ \n"
         change_path(path_to_tapas_scripts, tapas_file, pattern, text_replacement)
 
-        tapas_file = 'all_measures_local.txt'
-        pattern = "process:calibrationSave"
+
+        pattern = "//calibration"
         text_replacement = 'dir:'+path_to_folder+"\\"+name_extraction+"\\calibration\ \n"
         change_path(path_to_tapas_scripts, tapas_file, pattern, text_replacement)
+
+
+        pattern = 'process:input'
+        text_replacement = 'dataset:?dataset?-'dataset_name+'\n'
+        change_path(path_to_tapas_scripts, tapas_file, pattern, text_replacement)
+
+        pattern = 'process:link'
+        text_replacement = 'dataset:?dataset?-'dataset_name+'\n'
+        change_path(path_to_tapas_scripts, tapas_file, pattern, text_replacement)
+
+        pattern = '//second input'
+        text_replacement = 'dataset:?dataset?-'dataset_name+'\n'
+        change_path(path_to_tapas_scripts, tapas_file, pattern, text_replacement)
+
 
 def change_channel(path_to_tapas_scripts, specify_channel):
     '''
@@ -151,9 +178,11 @@ def extract(path_to_folder, name_extraction, separator, structure, ROI, threshol
     
     err_ROI = 0
 
-    path_name = os.path.join(path_to_folder, name_extraction)
+    path_name = os.path.join(path_to_folder, name_extraction) #path to the project folder 
     print(path_name)
-    #1. Access to the calibration data
+
+
+    #1. We start by accessing the calibration data
 
     calib_path = os.path.join(path_name, "calibration")
     if os.path.isdir(calib_path):
