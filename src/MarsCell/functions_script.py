@@ -64,11 +64,11 @@ def initialise_project(path_to_tapas_scripts, specify_channel, scale_x, scale_y,
         change_path(path_to_tapas_scripts, tapas_file, pattern, text_replacement)
 
         pattern = 'process:createDataset'
-        text_replacement = 'datasetName:?dataset?-'dataset_name+'\n'
+        text_replacement = 'datasetName:?dataset?-'+dataset_name+'\n'
         change_path(path_to_tapas_scripts, tapas_file, pattern, text_replacement)
 
         pattern = 'process:output'
-        text_replacement = 'dataset:?dataset?-'dataset_name+'\n'
+        text_replacement = 'dataset:?dataset?-'+dataset_name+'\n'
         change_path(path_to_tapas_scripts, tapas_file, pattern, text_replacement)
 
 
@@ -87,11 +87,11 @@ def initialise_project(path_to_tapas_scripts, specify_channel, scale_x, scale_y,
         change_path(path_to_tapas_scripts, tapas_file, pattern, text_replacement)
 
         pattern = 'process:input'
-        text_replacement = 'dataset:?dataset?-'dataset_name+'\n'
+        text_replacement = 'dataset:?dataset?-'+dataset_name+'\n'
         change_path(path_to_tapas_scripts, tapas_file, pattern, text_replacement)
 
         pattern = 'process:output'
-        text_replacement = 'dataset:?dataset?-'dataset_name+'\n'
+        text_replacement = 'dataset:?dataset?-'+dataset_name+'\n'
         change_path(path_to_tapas_scripts, tapas_file, pattern, text_replacement)
 
         tapas_file = 'all_measures_local.txt'
@@ -121,15 +121,15 @@ def initialise_project(path_to_tapas_scripts, specify_channel, scale_x, scale_y,
 
 
         pattern = 'process:input'
-        text_replacement = 'dataset:?dataset?-'dataset_name+'\n'
+        text_replacement = 'dataset:?dataset?-'+dataset_name+'\n'
         change_path(path_to_tapas_scripts, tapas_file, pattern, text_replacement)
 
         pattern = 'process:link'
-        text_replacement = 'dataset:?dataset?-'dataset_name+'\n'
+        text_replacement = 'dataset:?dataset?-'+dataset_name+'\n'
         change_path(path_to_tapas_scripts, tapas_file, pattern, text_replacement)
 
         pattern = '//second input'
-        text_replacement = 'dataset:?dataset?-'dataset_name+'\n'
+        text_replacement = 'dataset:?dataset?-'+dataset_name+'\n'
         change_path(path_to_tapas_scripts, tapas_file, pattern, text_replacement)
 
 
