@@ -11,18 +11,18 @@ authors = [{ name = "Julien Ferragu", email = "julien.ferragu@inserm.fr" }]
 readme = "README.md"
 requires-python = ">=3.9,<3.12"
 dependencies = [
-  'pandas==1.5.3',
-    'numpy==1.23.5',
-    'seaborn==0.12.2',
-    'statannotations==0.7.1',
-    'matplotlib==3.7.2',
-    'plotly==5.18.0',
-    'scipy==1.10.1',
-    'cellpose==2.1.1',
-    'PyYAML==6.0.1',
-    'requests==2.32.3',
-    'shap==0.46.0',
-    'scikit-learn==1.5.2']
+  'pandas==2.1.4',
+'numpy==1.26.2',
+'seaborn==0.13.0',
+'statannotations==0.5.0',
+'matplotlib==3.8.2',
+'plotly==5.18.0',
+'scipy==1.11.4',
+'cellpose==2.3.0',
+'PyYAML==6.0.1',
+'requests==2.33.0',
+'shap==0.44.0',
+'scikit-learn==1.6.1']
 
 [project.scripts]
 gui = "MarsCell:main"
