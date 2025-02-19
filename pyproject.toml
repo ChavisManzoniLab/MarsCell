@@ -9,7 +9,7 @@ license = {file = "LICENSE"}
 description = "An AI-based workflow for automated cell detection and quantification on confocal images"
 authors = [{ name = "Julien Ferragu", email = "julien.ferragu@inserm.fr" }]
 readme = "README.md"
-requires-python = ">=3.9,<3.12"
+requires-python = ">=3.9,<3.13"
 dependencies = [
   'pandas==2.1.4',
 'numpy==1.26.2',
