@@ -184,7 +184,7 @@ class:mcib3d.tapas.IJ.plugins.segmentation.WatershedIJProcess
 Performs ImageJ binary watershed (to separate touching objects).
 
 // Analysis / Measurement
-category:40 measurement
+category:40 Measurement
 class:mcib3d.tapas.IJ.plugins.analysis.AnalyzeParticlesProcess
 Performs the <b>analyzeParticles</b> function from ImageJ (2D labelling + measurements). The list of measurements include area and perimeter by default, additional measurements are centroid, ellipse, shape and feret.
 
