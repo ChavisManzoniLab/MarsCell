@@ -133,6 +133,28 @@ def initialise_project(path_to_tapas_scripts, specify_channel, scale_x, scale_y,
         change_path(path_to_tapas_scripts, tapas_file, pattern, text_replacement)
 
 
+
+
+        tapas_file = 'subprocess.txt'
+        pattern = "//preprocess"
+        text_replacement = 'dir:'+path_to_tapas_scripts+" \n"
+        change_path(path_to_tapas_scripts, tapas_file, pattern, text_replacement)
+
+        pattern = "//cellpose"
+        text_replacement = 'dir:'+path_to_tapas_scripts+" \n"
+        change_path(path_to_tapas_scripts, tapas_file, pattern, text_replacement)
+
+        pattern = "//drawroi"
+        text_replacement = 'dir:'+path_to_tapas_scripts+" \n"
+        change_path(path_to_tapas_scripts, tapas_file, pattern, text_replacement)
+
+        pattern = "//allmeasures"
+        text_replacement = 'dir:'+path_to_tapas_scripts+" \n"
+        change_path(path_to_tapas_scripts, tapas_file, pattern, text_replacement)
+
+
+
+
 def change_channel(path_to_tapas_scripts, specify_channel):
     '''
     Selects the channel to be processed
