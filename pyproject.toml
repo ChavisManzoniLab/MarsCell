@@ -34,3 +34,4 @@ where = ["src"]
 
 [tool.setuptools.package-data]
 "MarsCell.data" = ["*.txt", "*.bat","Reelin_P40_advanced"]
+"MarsCell" = ["TAPAS_installation/**/*"]

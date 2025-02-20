@@ -18,6 +18,7 @@ def initialisation():
 
     root = os.path.dirname(__file__) #location where github data is 
     data_path = os.path.join(root, "data")
+    tapas_install_path = os.path.join(data_path, "TAPAS_intallation")   
 
     
     user_folder_created = os.path.join(root, "data","created.yaml")
@@ -32,6 +33,8 @@ def initialisation():
             os.makedirs(tapas_path)
             models_path=os.path.join(user_marscell_folder, "Models")
             os.makedirs(models_path)
+            install_path=os.path.join(user_marscell_folder, "TAPAS_installation")
+            os.makedirs(install_path)
 
             print('TAPAS files tranfer...')
             for file in os.listdir(data_path):
@@ -43,7 +46,25 @@ def initialisation():
                 else:
                     copy2(os.path.join(data_path, file), models_path)
                 
+            print('TAPAS files transfered')
 
+            print("TAPAS installation files transfer...")
+            for file in os.listdir(tapas_install_path):
+                if ".jar" in file:
+                    copy2(os.path.join(tapas_install_path, file), install_path)
+                elif file=="tapas":
+                    tapas_plugin_path=os.path.join(install_path, "tapas")
+                    os.makedirs(tapas_plugin_path)
+                    for plugin_file in os.listdir(os.path.join(tapas_install_path,file)):
+                        copy2(os.path.join(tapas_install_path, file, plugin_file), tapas_plugin_path)
+                elif file=="mcib3d-suite":
+                    suite3d_plugin_path=os.path.join(install_path, "mcib3d-suite")
+                    os.makedirs(suite3d_plugin_path)
+                    for plugin_file in os.listdir(os.path.join(tapas_install_path,file)):
+                        copy2(os.path.join(tapas_install_path, file, plugin_file), suite3d_plugin_path)
+
+
+            print('Setting paths for Cellpose...')
             #setting the right paths to run cellpose
             runcellpose_path = os.path.join(models_path, "runCellpose.bat")
             venv_path = sys.prefix
