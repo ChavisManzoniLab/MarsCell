@@ -18,7 +18,7 @@ def initialisation():
 
     root = os.path.dirname(__file__) #location where github data is 
     data_path = os.path.join(root, "data")
-    tapas_install_path = os.path.join(data_path, "TAPAS_intallation")   
+    tapas_install_path = os.path.join(root, "TAPAS_intallation")   
 
     
     user_folder_created = os.path.join(root, "data","created.yaml")
