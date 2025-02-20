@@ -110,6 +110,7 @@ def run_gui():
         tk.Label(project_window, text="Dataset").grid(row=8, column=0, padx=10, pady=10, sticky='w')
         dataset_name_entry = tk.Entry(project_window, width=50)
         dataset_name_entry.grid(row=7, column=1, padx=10, pady=10)
+        dataset_name_entry.insert(0, project_data['dataset_name'])
         
 
         frame = tk.Frame(master=project_window, relief=tk.RAISED, borderwidth=1)
