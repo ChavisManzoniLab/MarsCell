@@ -59,6 +59,8 @@ To lauch MarsCell, type the command in your activated environment:
 gui
 ```
 You will be asked to chose a repository where a 'MarsCell' folder will be created. This folder will store the Cellpose models and the TAPAS files.
+To install TAPAS in Fiji, just copy the files in the folder TAPAS_installation and paste them in the plugin folder of Fiji.
+
 MarsCell is now ready to use!
 
 
